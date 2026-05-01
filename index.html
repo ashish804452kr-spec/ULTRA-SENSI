@@ -169,4 +169,151 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTRA SENSI - JARVIS EDITION</title>
+    <style>
+        /* पूरा थीम काला और लाल (Red Magic Style) */
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #000; color: #fff; }
+        
+        /* हेडर और साफ़ दिखने वाला मेनू बटन */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; background: #111; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 100; }
+        .logo-box img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ff0000; }
+        .chat-title { font-weight: bold; font-size: 20px; color: #fff; letter-spacing: 1px; }
+        .menu-icon { font-size: 35px; color: #ff0000; cursor: pointer; font-weight: bold; }
+
+        /* साइड मेनू सेटिंग्स */
+        .side-menu { position: fixed; right: -280px; top: 0; width: 260px; height: 100%; background: #000; transition: 0.4s; z-index: 1000; padding: 20px; border-left: 3px solid #ff0000; }
+        .side-menu.active { right: 0; }
+        .side-menu a { display: block; color: #fff; text-decoration: none; margin: 20px 0; font-size: 18px; background: #111; padding: 10px; border-radius: 5px; border-left: 5px solid #ff0000; }
+
+        /* ऐप पॉलिसी पेज (छुपा हुआ) */
+        #policy-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; padding: 25px; overflow-y: auto; box-sizing: border-box; }
+        
+        /* बटन्स और कार्ड्स */
+        .content { padding: 15px; }
+        .card { background: #111; border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #333; text-align: center; }
+        .btn-orange { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        
+        /* जार्विस चैट बॉक्स (Gemini API) */
+        .jarvis-container { background: #050505; border: 1px solid #00ebff; border-radius: 15px; padding: 15px; margin-top: 20px; box-shadow: 0 0 10px rgba(0, 235, 255, 0.2); }
+        #chat-display { height: 150px; overflow-y: auto; font-size: 14px; margin-bottom: 10px; padding: 5px; color: #00ebff; text-align: left; border-bottom: 1px solid #222; }
+        .chat-input-area { display: flex; gap: 10px; }
+        input[type="text"] { flex: 1; padding: 12px; background: #222; border: 1px solid #444; color: #fff; border-radius: 5px; }
+        .mike-btn { background: #00ebff; color: #000; border: none; padding: 10px; border-radius: 50%; font-size: 22px; cursor: pointer; }
+
+        /* गेम बूस्टर */
+        select { width: 100%; padding: 12px; background: #222; color: #fff; border: 1px solid #ff0000; border-radius: 8px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div id="policy-page">
+        <h1 style="color:#ff0000;">App Policy</h1>
+        <p>1. यह ऐप गेमिंग सेंसिटिविटी और AI गाइडेंस के लिए बनाया गया है।</p>
+        <p>2. जार्विस AI असली Gemini टेक्नोलॉजी पर आधारित है।</p>
+        <p>3. हम यूजर का कोई भी निजी डाटा स्टोर नहीं करते हैं।</p>
+        <br>
+        <button class="btn-orange" onclick="closePolicy()">वापस जाएँ (BACK)</button>
+    </div>
+
+    <div id="sideMenu" class="side-menu">
+        <h2 style="color:#ff0000;">MENU</h2>
+        <a href="javascript:void(0)" onclick="openPolicy()">App Policy</a>
+        <a href="https://www.instagram.com/ultrax111ff?igsh=MWd0eHBqOXE4Y2R1cQ==" target="_blank">Instagram</a>
+        <a href="https://www.youtube.com/@ULTRALEGEND111" target="_blank">YouTube Channel</a>
+        <button class="btn-orange" onclick="toggleMenu()" style="background:#333;">बंद करें (CLOSE)</button>
+    </div>
+
+    <div class="header">
+        <div class="logo-box" onclick="alert('Opening your other apps list...')"><img src="IMG_20260501_103729.jpg"></div>
+        <div class="chat-title">JARVIS AI</div>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <div class="content">
+        <img src="IMG_20260501_103729.jpg" style="width:100%; border-radius:15px; margin-bottom:20px; border:2px solid #333;">
+
+        <div class="jarvis-container">
+            <div id="chat-display"><b>Jarvis:</b> नमस्ते सुशील भाई! मैं आपका जार्विस हूँ। आज गेम में क्या मदद करूँ?</div>
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Jarvis से पूछें...">
+                <button onclick="askJarvis()" style="background:#00ebff; border:none; padding:10px; border-radius:5px; font-weight:bold;">ASK</button>
+                <button class="mike-btn" onclick="startVoice()">🎙️</button>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid #ff0000;">
+            <h3 style="color:#ff0000;">RED MAGIC BOOSTER</h3>
+            <select id="gameSelect">
+                <option value="">-- गेम चुनें (Select Game) --</option>
+                <option value="Free Fire">Free Fire</option>
+                <option value="Free Fire MAX">Free Fire MAX</option>
+            </select>
+            <button class="btn-orange" onclick="launchGame()">PLAY FREE FIRE</button>
+            <p style="font-size:12px; color:#888; margin-top:10px;">फीचर्स: Voice Changer, Auto Headshot, Bypass Charger Active.</p>
+        </div>
+    </div>
+
+    <script>
+        // आपकी Gemini API Key
+        const MY_API_KEY = "AlzaSyBCz0HRQf54D7zuj8uLwcIE6vUJSpxz4T3Y";
+
+        function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
+        function openPolicy() { document.getElementById('policy-page').style.display = 'block'; }
+        function closePolicy() { document.getElementById('policy-page').style.display = 'none'; }
+
+        function launchGame() {
+            let game = document.getElementById('gameSelect').value;
+            if(!game) { alert("पहले गेम सिलेक्ट करें!"); }
+            else { alert(game + " चालू हो रहा है... बूस्टर एक्टिवेटेड!"); }
+        }
+
+        // जार्विस असली Gemini AI फंक्शन
+        async function askJarvis() {
+            let input = document.getElementById('userInput').value;
+            let display = document.getElementById('chat-display');
+            if(!input) return;
+
+            display.innerHTML += "<br><b>आप:</b> " + input;
+            document.getElementById('userInput').value = "";
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${MY_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: "Jawab Hindi mein dein. Mera naam Sushil hai. Question: " + input }] }] })
+                });
+                const data = await response.json();
+                let reply = data.candidates[0].content.parts[0].text;
+                display.innerHTML += "<br><b>Jarvis:</b> " + reply;
+                speak(reply); // बोलकर सुनाने के लिए
+            } catch (e) {
+                display.innerHTML += "<br><b>Jarvis:</b> माफ़ कीजिये सुशील भाई, कुछ एरर आ गया।";
+            }
+        }
+
+        // आवाज़ वाला फीचर (🎙️)
+        function startVoice() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'hi-IN';
+            recognition.onresult = (event) => {
+                document.getElementById('userInput').value = event.results[0][0].transcript;
+                askJarvis();
+            };
+            recognition.start();
+        }
+
+        function speak(text) {
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = text;
+            msg.lang = 'hi-IN';
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+</body>
+</html>
                                                                    
