@@ -445,3 +445,178 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTRA SENSI - JARVIS EDITION</title>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        
+        /* 1. ENTRY SCREEN (Splash) */
+        #entry-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #entry-screen img { width: 80%; border-radius: 20px; border: 3px solid #ff0000; box-shadow: 0 0 20px #ff0000; margin-bottom: 30px; }
+        .enter-btn { background: linear-gradient(45deg, #ff0000, #990000); color: #fff; border: none; padding: 15px 50px; font-size: 24px; font-weight: bold; border-radius: 50px; cursor: pointer; letter-spacing: 2px; }
+
+        /* 2. HEADER & MENU */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: #111; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 100; }
+        .header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .header-left img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ff0000; }
+        .jarvis-text { font-weight: bold; color: #fff; font-size: 18px; text-shadow: 0 0 10px #ff0000; }
+        .menu-icon { font-size: 35px; color: #ff0000; cursor: pointer; padding-right: 10px; }
+
+        /* 3. NEW PAGES (Jarvis & Sensi) */
+        .full-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; }
+        .page-header { display: flex; justify-content: space-between; padding: 15px; background: #111; border-bottom: 1px solid #ff0000; }
+        #chat-output { flex: 1; padding: 15px; overflow-y: auto; color: #00ebff; }
+        .sensi-result { padding: 30px; text-align: center; color: #ff6600; font-size: 22px; font-weight: bold; }
+
+        /* 4. MAIN CONTENT */
+        .content { padding: 15px; }
+        .card { background: #111; border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #222; text-align: center; }
+        .btn-orange { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        
+        /* Red Magic Toggle */
+        .toggle-box { display: flex; justify-content: space-between; margin-bottom: 15px; align-items: center; }
+        .switch { width: 50px; height: 25px; appearance: none; background: #333; border-radius: 20px; position: relative; cursor: pointer; outline: none; }
+        .switch:checked { background: #ff0000; }
+        .switch:before { content: ''; position: absolute; width: 21px; height: 21px; background: #fff; border-radius: 50%; top: 2px; left: 2px; transition: 0.3s; }
+        .switch:checked:before { left: 27px; }
+
+        /* Side Menu */
+        .side-menu { position: fixed; right: -300px; top: 0; width: 280px; height: 100%; background: #050505; transition: 0.4s; z-index: 3000; padding: 20px; border-left: 2px solid #ff0000; }
+        .side-menu.active { right: 0; }
+        .side-menu a { display: block; color: #fff; text-decoration: none; padding: 15px; border-bottom: 1px solid #222; font-size: 18px; }
+
+        /* Character Skill Section */
+        .skill-item { background: #1a1a1a; margin: 10px 0; padding: 15px; border-radius: 10px; transform: skew(-10deg); border-left: 5px solid #ff6600; }
+    </style>
+</head>
+<body>
+
+    <div id="entry-screen">
+        <img src="IMG_20260501_103729.jpg" alt="Sushil Photo">
+        <button class="enter-btn" onclick="enterApp()">ENTER</button>
+    </div>
+
+    <div id="sideMenu" class="side-menu">
+        <h2 style="color:#ff0000;">ULTRA MENU</h2>
+        <a href="https://www.instagram.com/ultrax111ff" target="_blank">Instagram</a>
+        <a href="https://www.youtube.com/@ULTRALEGEND111" target="_blank">YouTube Channel</a>
+        <a href="javascript:void(0)" onclick="toggleMenu()">Close Menu</a>
+    </div>
+
+    <div id="jarvis-page" class="full-page">
+        <div class="page-header">
+            <span style="color:#00ebff; font-weight:bold;">JARVIS AI CHAT</span>
+            <button onclick="closePage('jarvis-page')" style="background:#ff0000; color:#fff; border:none; padding:5px 15px; border-radius:5px;">BACK</button>
+        </div>
+        <div id="chat-output">Jarvis: नमस्ते सुशील भाई! पूछिए, आज गेम में क्या करना है?</div>
+        <div style="padding:15px; display:flex; gap:10px; background:#111;">
+            <input type="text" id="userInput" style="flex:1; padding:10px; border-radius:5px; border:1px solid #00ebff; background:#222; color:#fff;" placeholder="यहाँ लिखें...">
+            <button onclick="askJarvis()" style="background:#00ebff; border:none; padding:10px 20px; border-radius:5px; font-weight:bold;">ASK</button>
+        </div>
+    </div>
+
+    <div id="sensi-page" class="full-page">
+        <div class="page-header">
+            <span style="color:#ff6600; font-weight:bold;">200% SENSI SETTINGS</span>
+            <button onclick="closePage('sensi-page')" style="background:#ff0000; color:#fff; border:none; padding:5px 15px; border-radius:5px;">BACK</button>
+        </div>
+        <div class="sensi-result" id="sensi-data">
+            Generating...
+        </div>
+        <img src="IMG_20260501_103729.jpg" style="width:90%; margin:20px auto; display:block; border-radius:15px; border:1px solid #333;">
+    </div>
+
+    <div id="main-app">
+        <div class="header">
+            <div class="header-left" onclick="openPage('jarvis-page')">
+                <img src="IMG_20260501_103729.jpg" alt="Logo">
+                <span class="jarvis-text">JARVIS AI</span>
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        </div>
+
+        <div class="content">
+            <img src="IMG_20260501_103729.jpg" style="width:100%; border-radius:15px; margin-bottom:20px; border:1px solid #333;">
+
+            <div class="card">
+                <h3 style="color:#ff6600; margin:0 0 15px 0;">SENSI GENERATOR</h3>
+                <select id="ramSelect" style="width:100%; padding:10px; background:#222; color:#fff; border:1px solid #444; border-radius:5px;">
+                    <option>Select RAM (4GB)</option>
+                    <option>Select RAM (6GB)</option>
+                    <option>Select RAM (8GB+)</option>
+                </select>
+                <button class="btn-orange" onclick="generateSensi()">GENERATE IN NEW PAGE</button>
+            </div>
+
+            <div class="card" style="border:2px solid #ff0000;">
+                <h3 style="color:#ff0000; margin:0 0 15px 0;">RED MAGIC BOOSTER</h3>
+                <div class="toggle-box"><span>Auto Headshot AI</span><input type="checkbox" class="switch"></div>
+                <div class="toggle-box"><span>Bypass Charger</span><input type="checkbox" class="switch"></div>
+                <select id="gameSelect" style="width:100%; padding:10px; background:#222; color:#fff; border:1px solid #444; border-radius:5px;">
+                    <option value="">-- Select Game --</option>
+                    <option value="ff">Free Fire</option>
+                    <option value="ffmax">Free Fire MAX</option>
+                </select>
+                <button class="btn-orange" style="background:#ff0000;" onclick="goToSettings()">CHOOSE FROM SETTINGS</button>
+            </div>
+
+            <h3 style="color:#ff6600; border-left:4px solid #ff6600; padding-left:10px;">CHARACTER SKILLS</h3>
+            <div class="skill-item">WUKONG: Stealth & Headshot +15%</div>
+            <div class="skill-item">ALOK: Speed & Recovery +20%</div>
+            <div class="skill-item">CHRONO: Shield & Defence +10%</div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = "AIzaSyBth1oKVbC6oFFa5Dw-ENlPqmk3alBZMnA";
+
+        function enterApp() { document.getElementById('entry-screen').style.display = 'none'; }
+        function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
+        function openPage(id) { document.getElementById(id).style.display = 'flex'; }
+        function closePage(id) { document.getElementById(id).style.display = 'none'; }
+
+        function generateSensi() {
+            let ram = document.getElementById('ramSelect').value;
+            document.getElementById('sensi-data').innerHTML = `
+                <p>Applied for ${ram}</p>
+                <p>General: 100</p>
+                <p>Red Dot: 98</p>
+                <p>2X Scope: 100</p>
+                <p>4X Scope: 95</p>
+                <p style="color:white; font-size:14px; margin-top:20px;">Settings Applied to your Device!</p>
+            `;
+            openPage('sensi-page');
+        }
+
+        function goToSettings() {
+            let g = document.getElementById('gameSelect').value;
+            if(!g) { alert("Pahle Game select karein!"); return; }
+            alert("Settings me jaakar Free Fire select karein aur Booster chalu karein!");
+            window.location.href = "intent:#Intent;action=android.settings.SETTINGS;end";
+        }
+
+        async function askJarvis() {
+            let q = document.getElementById('userInput').value;
+            let out = document.getElementById('chat-output');
+            if(!q) return;
+            out.innerHTML += `<br><b style="color:white;">Sushil:</b> ${q}`;
+            document.getElementById('userInput').value = "";
+            
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: "Jawab Hindi mein dein. Mera naam Sushil hai. Question: " + q }] }] })
+                });
+                const data = await res.json();
+                out.innerHTML += `<br><b>Jarvis:</b> ${data.candidates[0].content.parts[0].text}`;
+                out.scrollTop = out.scrollHeight;
+            } catch(e) { out.innerHTML += "<br>Jarvis: Error! Please check Internet."; }
+        }
+    </script>
+</body>
+</html>
