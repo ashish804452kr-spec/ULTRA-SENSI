@@ -1,424 +1,223 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA SENSI 200 - RED MAGIC</title>
-    <style>
-        body { margin: 0; font-family: 'Arial', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; }
-        
-        /* टॉप हेडर */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: #111; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 100; }
-        .logo-box img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ff0000; cursor: pointer; }
-        .chat-title { font-weight: bold; font-size: 18px; color: #fff; text-shadow: 0 0 10px #00ebff; }
-        .menu-icon { font-size: 28px; color: #ff0000; cursor: pointer; }
-
-        /* साइड मेनू */
-        .side-menu { position: fixed; right: -260px; top: 0; width: 250px; height: 100%; background: #111; transition: 0.4s; z-index: 1000; padding: 20px; border-left: 2px solid #ff0000; }
-        .side-menu.active { right: 0; }
-        .side-menu a { display: block; color: #fff; text-decoration: none; margin: 20px 0; font-size: 16px; border-bottom: 1px solid #333; padding-bottom: 5px; }
-
-        /* बैनर फोटो */
-        .main-banner { width: 100%; height: 200px; object-fit: cover; border-bottom: 3px solid #ff0000; }
-
-        /* गन सेक्शन (तिरछा स्टाइल) */
-        .section-title { padding: 10px; color: #ff0000; font-weight: bold; text-transform: uppercase; border-left: 5px solid #ff0000; margin: 15px 10px; }
-        .gun-container { display: flex; flex-wrap: wrap; justify-content: space-around; padding: 10px; }
-        .gun-card { width: 45%; background: #1a1a1a; margin: 5px; padding: 15px; border-radius: 10px; transform: skew(-5deg); border: 1px solid #333; text-align: center; }
-        .gun-card span { display: block; font-weight: bold; margin-bottom: 10px; font-size: 14px; }
-
-        /* रैम बटन्स */
-        .ram-box { display: flex; justify-content: space-between; padding: 0 15px; margin-bottom: 20px; }
-        .ram-btn { background: #222; border: 1px solid #ff0000; color: #fff; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
-
-        /* ऑरेंज बटन एनीमेशन */
-        .btn-gen { background: linear-gradient(to right, #ff6600, #ff0000); color: #fff; border: none; padding: 10px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-gen:active { transform: scale(0.9); box-shadow: 0 0 15px #ff6600; }
-
-        /* सर्च बार */
-        .search-box { padding: 15px; }
-        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #222; color: #fff; box-sizing: border-box; margin-bottom: 10px; }
-
-        /* जार्विस बॉक्स */
-        .jarvis-panel { background: #000; border: 1px solid #00ebff; margin: 15px; padding: 15px; border-radius: 12px; position: relative; }
-        .mike-btn { position: absolute; right: 15px; bottom: 15px; font-size: 25px; cursor: pointer; color: #00ebff; }
-
-        /* रेड मैजिक बूस्टर पैनल */
-        .booster-panel { background: #111; margin: 15px; padding: 20px; border-radius: 15px; border: 1px solid #ff0000; box-shadow: inset 0 0 10px #ff0000; }
-        .booster-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #222; }
-        
-        /* टॉगल स्विच */
-        .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #444; transition: .4s; border-radius: 20px; }
-        input:checked + .slider { background-color: #ff0000; }
-
-        .play-btn { background: #ff0000; color: #fff; font-size: 20px; font-weight: bold; padding: 15px; width: 100%; border: none; border-radius: 10px; margin-top: 10px; cursor: pointer; box-shadow: 0 0 20px #ff0000; }
-    </style>
-</head>
-<body>
-
-    <div id="sideMenu" class="side-menu">
-        <h2 style="color:#ff0000;">ULTRA SETTINGS</h2>
-        <a href="#">About Ultra Sensi</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Sushil Official</a>
-        <a href="#">My YouTube Channel</a>
-        <a href="#">Instagram Profile</a>
-        <button onclick="toggleMenu()" class="btn-gen" style="margin-top:20px;">CLOSE</button>
-    </div>
-
-    <div class="header">
-        <div class="logo-box" onclick="alert('Opening your other apps...')">
-            <img src="IMG_20260501_103729.jpg">
-        </div>
-        <div class="chat-title">CHAT AI (GEMINI)</div>
-        <div class="menu-icon" onclick="toggleMenu()">☰</div>
-    </div>
-
-    <img src="IMG_20260501_103729.jpg" class="main-banner">
-
-    <div class="section-title">200 Sensi Guns</div>
-    <div class="gun-container">
-        <div class="gun-card">
-            <span>DESERT EAGLE</span>
-            <button class="btn-gen" onclick="generate('Desert Eagle 200% Sensi')">GENERATE</button>
-        </div>
-        <div class="gun-card">
-            <span>M1014 / M1887</span>
-            <button class="btn-gen" onclick="generate('One Tap Sensi Ready')">GENERATE</button>
-        </div>
-        <div class="gun-card">
-            <span>UMP / MP40</span>
-            <button class="btn-gen" onclick="generate('SMG Headshot 200%')">GENERATE</button>
-        </div>
-        <div class="gun-card">
-            <span>WOODPECKER</span>
-            <button class="btn-gen" onclick="generate('Auto Aim Config')">GENERATE</button>
-        </div>
-    </div>
-
-    <div class="section-title">Mobile Optimization</div>
-    <div class="ram-box">
-        <button class="ram-btn" onclick="generate('2GB Optimized')">2GB</button>
-        <button class="ram-btn" onclick="generate('4GB Optimized')">4GB</button>
-        <button class="ram-btn" onclick="generate('6GB Optimized')">6GB</button>
-        <button class="ram-btn" onclick="generate('8GB+ Optimized')">8GB</button>
-    </div>
-    <div class="search-box">
-        <input type="text" placeholder="Search Mobile Model (e.g. Vivo Y21)...">
-        <button class="btn-gen" onclick="generate('Model Settings Found!')">GENERATE LIVE SENSI</button>
-    </div>
-
-    <div class="section-title">Character Skill AI</div>
-    <div class="search-box">
-        <input type="text" id="charInput" placeholder="Search Character (Alok, Raistar Style...)">
-        <button class="btn-gen" style="background:#00ebff; color:#000;" onclick="charSearch()">AI SEARCH</button>
-        <p id="charRes" style="font-size:12px; color:#ccc; margin-top:5px;"></p>
-    </div>
-
-    <div class="jarvis-panel">
-        <b style="color:#00ebff;">JARVIS (GEMINI):</b>
-        <p id="jText" style="color:#fff;">Hello Sushil, how can I help you in Free Fire today?</p>
-        <div class="mike-btn" onclick="startListen()">🎙️</div>
-    </div>
-
-    <div class="section-title">Red Magic Booster</div>
-    <div class="booster-panel">
-        <div class="booster-item">
-            <span>Voice Changer AI</span>
-            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-        </div>
-        <div class="booster-item">
-            <span>Auto Headshot AI</span>
-            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-        </div>
-        <div class="booster-item">
-            <span>Bypass Charger (Anti-Heat)</span>
-            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-        </div>
-        <button class="play-btn" onclick="generate('Opening Free Fire...')">PLAY FREE FIRE</button>
-    </div>
-
-    <script>
-        function toggleMenu() {
-            document.getElementById('sideMenu').classList.toggle('active');
-        }
-
-        function generate(msg) {
-            alert("Red Magic Ad Loading...");
-            setTimeout(() => {
-                alert(msg + " - Settings Activated!");
-            }, 2000);
-        }
-
-        function charSearch() {
-            let val = document.getElementById('charInput').value.toLowerCase();
-            let res = document.getElementById('charRes');
-            if(val.includes('alok')) res.innerText = "Best Combo: Alok + Kelly + Tatsuya + Luna.";
-            else res.innerText = "Character data analyzed by Gemini. Use High DPI for this skill.";
-        }
-
-        function startListen() {
-            document.getElementById('jText').innerText = "Jarvis is listening to Sushil...";
-            setTimeout(() => {
-                document.getElementById('jText').innerText = "I have saved your strategy, Sushil. All systems online.";
-            }, 3000);
-        }
-    </script>
-</body>
-</html>
 
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA SENSI - JARVIS EDITION</title>
+    <title>ULTRA SENSI AI - JARVIS RED MAGIC</title>
     <style>
-        /* पूरा थीम काला और लाल (Red Magic Style) */
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #000; color: #fff; }
+        /* --- CSS: DESIGN & LOOK --- */
+        body { margin: 0; font-family: 'Segoe UI', Roboto, sans-serif; background-color: #000; color: #fff; overflow-x: hidden; }
         
-        /* हेडर और साफ़ दिखने वाला मेनू बटन */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; background: #111; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 100; }
-        .logo-box img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ff0000; }
-        .chat-title { font-weight: bold; font-size: 20px; color: #fff; letter-spacing: 1px; }
-        .menu-icon { font-size: 35px; color: #ff0000; cursor: pointer; font-weight: bold; }
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #111; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 100; cursor: pointer; }
+        .logo-box img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ff0000; box-shadow: 0 0 10px #ff0000; }
+        .chat-title-top { font-weight: bold; font-size: 20px; color: #fff; text-shadow: 0 0 10px #ff0000; letter-spacing: 1px; }
+        .menu-icon { font-size: 35px; color: #ff0000; font-weight: bold; }
 
-        /* साइड मेनू सेटिंग्स */
-        .side-menu { position: fixed; right: -280px; top: 0; width: 260px; height: 100%; background: #000; transition: 0.4s; z-index: 1000; padding: 20px; border-left: 3px solid #ff0000; }
+        /* Side Menu */
+        .side-menu { position: fixed; right: -300px; top: 0; width: 280px; height: 100%; background: #050505; transition: 0.4s; z-index: 1000; padding: 25px; border-left: 3px solid #ff0000; box-shadow: -10px 0 20px rgba(0,0,0,0.8); }
         .side-menu.active { right: 0; }
-        .side-menu a { display: block; color: #fff; text-decoration: none; margin: 20px 0; font-size: 18px; background: #111; padding: 10px; border-radius: 5px; border-left: 5px solid #ff0000; }
+        .side-menu h2 { color: #ff0000; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .side-menu a { display: block; color: #fff; text-decoration: none; margin: 20px 0; font-size: 18px; padding: 12px; background: #111; border-radius: 8px; border-left: 5px solid #ff0000; transition: 0.3s; }
+        .side-menu a:active { background: #ff0000; color: #000; }
 
-        /* ऐप पॉलिसी पेज (छुपा हुआ) */
-        #policy-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; padding: 25px; overflow-y: auto; box-sizing: border-box; }
-        
-        /* बटन्स और कार्ड्स */
+        /* Jarvis New Chat Page */
+        #jarvis-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; }
+        .chat-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #00ebff; background: #0a0a0a; }
+        #chat-output-page { flex: 1; padding: 20px; overflow-y: auto; color: #fff; font-size: 16px; line-height: 1.6; }
+        .chat-input-area-page { display: flex; padding: 15px; background: #111; border-top: 1px solid #00ebff; gap: 10px; }
+        .chat-input-area-page input { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #00ebff; background: #222; color: #fff; }
+        .btn-send { background: #00ebff; color: #000; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        /* App Policy Page */
+        #policy-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 3000; padding: 30px; box-sizing: border-box; overflow-y: auto; }
+
+        /* Main Content */
         .content { padding: 15px; }
-        .card { background: #111; border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #333; text-align: center; }
-        .btn-orange { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        .banner-img { width: 100%; border-radius: 15px; border: 2px solid #333; margin-bottom: 20px; }
+        .section-title { font-weight: bold; color: #ff0000; font-size: 18px; margin: 20px 0 10px 5px; text-transform: uppercase; border-left: 4px solid #ff0000; padding-left: 10px; }
         
-        /* जार्विस चैट बॉक्स (Gemini API) */
-        .jarvis-container { background: #050505; border: 1px solid #00ebff; border-radius: 15px; padding: 15px; margin-top: 20px; box-shadow: 0 0 10px rgba(0, 235, 255, 0.2); }
-        #chat-display { height: 150px; overflow-y: auto; font-size: 14px; margin-bottom: 10px; padding: 5px; color: #00ebff; text-align: left; border-bottom: 1px solid #222; }
-        .chat-input-area { display: flex; gap: 10px; }
-        input[type="text"] { flex: 1; padding: 12px; background: #222; border: 1px solid #444; color: #fff; border-radius: 5px; }
-        .mike-btn { background: #00ebff; color: #000; border: none; padding: 10px; border-radius: 50%; font-size: 22px; cursor: pointer; }
+        /* Cards */
+        .card { background: #111; border-radius: 15px; padding: 20px; margin-bottom: 15px; border: 1px solid #222; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .btn-gen { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; border: none; padding: 14px; width: 100%; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+        .btn-gen:active { transform: scale(0.92); box-shadow: 0 0 15px #ff6600; }
 
-        /* गेम बूस्टर */
-        select { width: 100%; padding: 12px; background: #222; color: #fff; border: 1px solid #ff0000; border-radius: 8px; margin-bottom: 10px; }
+        /* Gun Display (Skewed) */
+        .gun-grid { display: flex; flex-wrap: wrap; justify-content: space-between; }
+        .gun-item { width: 46%; background: #1a1a1a; padding: 15px; margin-bottom: 10px; border-radius: 8px; transform: skew(-5deg); border: 1px solid #333; }
+        .gun-item span { font-weight: bold; font-size: 14px; display: block; margin-bottom: 8px; color: #ddd; }
+
+        /* Booster Panel */
+        .booster-box { background: #0a0a0a; border: 2px solid #ff0000; border-radius: 20px; padding: 20px; position: relative; overflow: hidden; }
+        .booster-box::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, transparent 70%); }
+        select, input[type="text"] { width: 100%; padding: 12px; margin: 8px 0; background: #222; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
+        
+        /* Toggle Switch */
+        .toggle-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .switch { position: relative; width: 45px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #333; border-radius: 34px; transition: 0.4s; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; transition: 0.4s; border-radius: 50%; }
+        input:checked + .slider { background: #ff0000; }
+        input:checked + .slider:before { transform: translateX(21px); }
+
+        .mike-btn { background: #00ebff; color: #000; border: none; padding: 12px; border-radius: 50%; font-size: 24px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div id="policy-page">
-        <h1 style="color:#ff0000;">App Policy</h1>
-        <p>1. यह ऐप गेमिंग सेंसिटिविटी और AI गाइडेंस के लिए बनाया गया है।</p>
-        <p>2. जार्विस AI असली Gemini टेक्नोलॉजी पर आधारित है।</p>
-        <p>3. हम यूजर का कोई भी निजी डाटा स्टोर नहीं करते हैं।</p>
-        <br>
-        <button class="btn-orange" onclick="closePolicy()">वापस जाएँ (BACK)</button>
-    </div>
-
     <div id="sideMenu" class="side-menu">
-        <h2 style="color:#ff0000;">MENU</h2>
+        <h2>ULTRA MENU</h2>
         <a href="javascript:void(0)" onclick="openPolicy()">App Policy</a>
         <a href="https://www.instagram.com/ultrax111ff?igsh=MWd0eHBqOXE4Y2R1cQ==" target="_blank">Instagram</a>
         <a href="https://www.youtube.com/@ULTRALEGEND111" target="_blank">YouTube Channel</a>
-        <button class="btn-orange" onclick="toggleMenu()" style="background:#333;">बंद करें (CLOSE)</button>
+        <a href="javascript:void(0)" onclick="openJarvisPage()">Jarvis New Chat</a>
+        <button class="btn-gen" onclick="toggleMenu()" style="background:#333; margin-top:30px;">CLOSE</button>
     </div>
 
-    <div class="header">
-        <div class="logo-box" onclick="alert('Opening your other apps list...')"><img src="IMG_20260501_103729.jpg"></div>
-        <div class="chat-title">JARVIS AI</div>
-        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <div id="policy-page">
+        <h1 style="color:#ff0000;">App Policy & Rules</h1>
+        <div style="line-height: 1.8; color: #ccc;">
+            <p>1. यह ऐप केवल गेमिंग मनोरंजन और सेंसिटिविटी गाइड के लिए है।</p>
+            <p>2. जार्विस AI असली Google Gemini API द्वारा संचालित है।</p>
+            <p>3. हम यूजर का कोई भी निजी डाटा या पासवर्ड सेव नहीं करते हैं।</p>
+            <p>4. रेड मैजिक बूस्टर आपके गेम को स्मूथ बनाने में मदद करता है।</p>
+            <p>5. इस ऐप का गलत इस्तेमाल करने पर डेवलपर जिम्मेदार नहीं होगा।</p>
+        </div>
+        <button class="btn-gen" onclick="closePolicy()">I AGREE & BACK</button>
     </div>
 
-    <div class="content">
-        <img src="IMG_20260501_103729.jpg" style="width:100%; border-radius:15px; margin-bottom:20px; border:2px solid #333;">
-
-        <div class="jarvis-container">
-            <div id="chat-display"><b>Jarvis:</b> नमस्ते सुशील भाई! मैं आपका जार्विस हूँ। आज गेम में क्या मदद करूँ?</div>
-            <div class="chat-input-area">
-                <input type="text" id="userInput" placeholder="Jarvis से पूछें...">
-                <button onclick="askJarvis()" style="background:#00ebff; border:none; padding:10px; border-radius:5px; font-weight:bold;">ASK</button>
-                <button class="mike-btn" onclick="startVoice()">🎙️</button>
+    <div id="jarvis-page">
+        <div class="chat-header">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="IMG_20260501_103729.jpg" style="width:35px; height:35px; border-radius:50%; border:1px solid #00ebff;">
+                <span style="color:#00ebff; font-weight:bold;">JARVIS AI</span>
             </div>
+            <button onclick="closeJarvisPage()" style="background:#333; color:#fff; border:none; padding:8px 15px; border-radius:5px;">BACK</button>
+        </div>
+        <div id="chat-output-page">
+            <div style="color:#00ebff;"><b>Jarvis:</b> नमस्ते सुशील भाई! यह आपका नया चैट पेज है। यहाँ हम अकेले बात कर सकते हैं। पूछिए, मैं आपकी क्या मदद करूँ?</div>
+        </div>
+        <div class="chat-input-area-page">
+            <input type="text" id="userInputPage" placeholder="Jarvis से पूछें...">
+            <button class="btn-send" onclick="askJarvis()">ASK</button>
+            <button class="mike-btn" onclick="startVoice()">🎙️</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div class="header" onclick="openJarvisPage()">
+            <div class="logo-box"><img src="IMG_20260501_103729.jpg"></div>
+            <div class="chat-title-top">JARVIS AI</div>
+            <div class="menu-icon" onclick="toggleMenu(); event.stopPropagation();">☰</div>
         </div>
 
-        <div class="card" style="border: 2px solid #ff0000;">
-            <h3 style="color:#ff0000;">RED MAGIC BOOSTER</h3>
-            <select id="gameSelect">
-                <option value="">-- गेम चुनें (Select Game) --</option>
-                <option value="Free Fire">Free Fire</option>
-                <option value="Free Fire MAX">Free Fire MAX</option>
-            </select>
-            <button class="btn-orange" onclick="launchGame()">PLAY FREE FIRE</button>
-            <p style="font-size:12px; color:#888; margin-top:10px;">फीचर्स: Voice Changer, Auto Headshot, Bypass Charger Active.</p>
+        <div class="content">
+            <img src="IMG_20260501_103729.jpg" class="banner-img">
+
+            <div class="section-title">200% Sensi Generator</div>
+            <div class="card">
+                <select id="ramSelect">
+                    <option>Select RAM (2GB)</option>
+                    <option>Select RAM (4GB)</option>
+                    <option>Select RAM (6GB)</option>
+                    <option>Select RAM (8GB+)</option>
+                </select>
+                <input type="text" id="modelInput" placeholder="Enter Mobile Model (e.g. Vivo, iPhone)">
+                <button class="btn-gen" onclick="generateSensi()">GENERATE LIVE SENSI</button>
+            </div>
+
+            <div class="section-title">One Tap Gun Settings</div>
+            <div class="gun-grid">
+                <div class="gun-item"><span>DESERT EAGLE</span><button class="btn-gen" onclick="alert('DE Sensi Applied!')">SET</button></div>
+                <div class="gun-item"><span>M1014 / M1887</span><button class="btn-gen" onclick="alert('Shotgun Sensi Applied!')">SET</button></div>
+                <div class="gun-item"><span>UMP / MP40</span><button class="btn-gen" onclick="alert('SMG Sensi Applied!')">SET</button></div>
+                <div class="gun-item"><span>WOODPECKER</span><button class="btn-gen" onclick="alert('Sniper Sensi Applied!')">SET</button></div>
+            </div>
+
+            <div class="section-title">Red Magic Gaming Booster</div>
+            <div class="booster-box">
+                <div class="toggle-item"><span>Auto Headshot AI</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="toggle-item"><span>Voice Changer (Robot)</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                <div class="toggle-item"><span>Bypass Charger</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                
+                <p style="text-align:left; font-size:14px; margin-bottom:5px;">Select Game to Launch:</p>
+                <select id="gameSelect">
+                    <option value="">-- Choose Game --</option>
+                    <option value="Free Fire">Free Fire</option>
+                    <option value="Free Fire MAX">Free Fire MAX</option>
+                </select>
+                <button class="btn-gen" style="background:#ff0000; font-size:20px; padding:18px;" onclick="playGame()">PLAY FREE FIRE</button>
+            </div>
+            
+            <div style="height:50px;"></div>
         </div>
     </div>
 
     <script>
-        // आपकी Gemini API Key
-        const MY_API_KEY = "AlzaSyBCz0HRQf54D7zuj8uLwcIE6vUJSpxz4T3Y";
+        // API KEY
+        const API_KEY = "AlzaSyBCz0HRQf54D7zuj8uLwcIE6vUJSpxz4T3Y";
 
         function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
         function openPolicy() { document.getElementById('policy-page').style.display = 'block'; }
         function closePolicy() { document.getElementById('policy-page').style.display = 'none'; }
+        function openJarvisPage() { document.getElementById('jarvis-page').style.display = 'flex'; }
+        function closeJarvisPage() { document.getElementById('jarvis-page').style.display = 'none'; }
 
-        function launchGame() {
-            let game = document.getElementById('gameSelect').value;
-            if(!game) { alert("पहले गेम सिलेक्ट करें!"); }
-            else { alert(game + " चालू हो रहा है... बूस्टर एक्टिवेटेड!"); }
+        function generateSensi() {
+            let model = document.getElementById('modelInput').value;
+            if(!model) { alert("Please enter Mobile Model!"); return; }
+            alert("Generating 200% Sensitivity for " + model + "...\nWait for Ad...");
         }
 
-        // जार्विस असली Gemini AI फंक्शन
+        function playGame() {
+            let game = document.getElementById('gameSelect').value;
+            if(!game) { alert("पहले गेम सिलेक्ट करें!"); return; }
+            alert("Red Magic Booster Active!\nLaunching " + game + "...");
+            // Real game launch code can't work in browser, so it's a demo
+        }
+
+        // Asli Gemini AI Chat
         async function askJarvis() {
-            let input = document.getElementById('userInput').value;
-            let display = document.getElementById('chat-display');
+            let input = document.getElementById('userInputPage').value;
+            let display = document.getElementById('chat-output-page');
             if(!input) return;
 
-            display.innerHTML += "<br><b>आप:</b> " + input;
-            document.getElementById('userInput').value = "";
+            display.innerHTML += `<div style="text-align:right; margin:10px 0;"><span style="background:#333; padding:8px 12px; border-radius:10px;">${input}</span></div>`;
+            document.getElementById('userInputPage').value = "";
 
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${MY_API_KEY}`, {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: "Jawab Hindi mein dein. Mera naam Sushil hai. Question: " + input }] }] })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: "Mera naam Sushil hai. Jawab Hindi mein dein. Question: " + input }] }] })
                 });
                 const data = await response.json();
                 let reply = data.candidates[0].content.parts[0].text;
-                display.innerHTML += "<br><b>Jarvis:</b> " + reply;
-                speak(reply); // बोलकर सुनाने के लिए
+                display.innerHTML += `<div style="text-align:left; margin:10px 0; color:#00ebff;"><b>Jarvis:</b> ${reply}</div>`;
+                display.scrollTop = display.scrollHeight;
+                speak(reply);
             } catch (e) {
-                display.innerHTML += "<br><b>Jarvis:</b> माफ़ कीजिये सुशील भाई, कुछ एरर आ गया।";
+                display.innerHTML += `<div style="color:red;">Error: API Key check karein ya Internet dekhein.</div>`;
             }
         }
 
-        // आवाज़ वाला फीचर (🎙️)
+        // Voice Feature
         function startVoice() {
             const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.lang = 'hi-IN';
             recognition.onresult = (event) => {
-                document.getElementById('userInput').value = event.results[0][0].transcript;
+                document.getElementById('userInputPage').value = event.results[0][0].transcript;
                 askJarvis();
             };
             recognition.start();
         }
 
         function speak(text) {
-            const msg = new SpeechSynthesisUtterance();
-            msg.text = text;
+            const msg = new SpeechSynthesisUtterance(text);
             msg.lang = 'hi-IN';
             window.speechSynthesis.speak(msg);
-        }
-    </script>
-</body>
-</html>
-                                                                   
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA SENSI - JARVIS AI</title>
-    <style>
-        body { margin: 0; font-family: 'Arial', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; }
-        
-        /* ऊपर की पट्टी (Header) - जिस पर क्लिक होगा */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: #111; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 100; cursor: pointer; }
-        .logo-box img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ff0000; }
-        .chat-title-top { font-weight: bold; font-size: 18px; color: #fff; text-shadow: 0 0 10px #ff0000; }
-        .menu-icon { font-size: 28px; color: #ff0000; }
-
-        /* साइड मेनू */
-        .side-menu { position: fixed; right: -260px; top: 0; width: 250px; height: 100%; background: #111; transition: 0.4s; z-index: 1000; padding: 20px; border-left: 2px solid #ff0000; }
-        .side-menu.active { right: 0; }
-        .side-menu a { display: block; color: #fff; text-decoration: none; margin: 20px 0; font-size: 16px; border-bottom: 1px solid #333; padding-bottom: 5px; }
-
-        /* बैनर फोटो */
-        .main-banner { width: 100%; height: auto; border-bottom: 3px solid #ff0000; }
-
-        /* सादा चैट स्क्रीन (New Jarvis Page) - शुरू में छुपा रहेगा */
-        #jarvis-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; }
-        .chat-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #00ebff; }
-        #chat-output-page { flex: 1; padding: 15px; overflow-y: auto; color: #00ebff; }
-        .chat-input-area-page { display: flex; padding: 10px; border-top: 1px solid #00ebff; }
-        input[type="text"] { flex: 1; padding: 10px; border: 1px solid #00ebff; border-radius: 5px; background: #222; color: #fff; margin-right: 10px; }
-        .btn-send { background: #00ebff; color: #000; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
-
-        /* बूस्टर पैनल */
-        .booster-panel { background: #111; margin: 15px; padding: 20px; border-radius: 15px; border: 1px solid #ff0000; text-align: center; }
-        .btn-play { background: #ff0000; color: #fff; font-size: 20px; padding: 15px; width: 100%; border: none; border-radius: 10px; cursor: pointer; }
-    </style>
-</head>
-<body>
-
-    <div id="jarvis-page">
-        <div class="chat-header">
-            <h3 style="color:#00ebff;">JARVIS (NEW CHAT)</h3>
-            <button onclick="closeJarvisPage()" style="background:#ff0000; color:#fff; border:none; padding:5px 10px;">BACK</button>
-        </div>
-        <div id="chat-output-page"><b>Jarvis:</b> सुशील भाई, नया सादा पेज हाज़िर है। चलिए बात करते हैं!</div>
-        <div class="chat-input-area-page">
-            <input type="text" id="userInputPage" placeholder="Ask Jarvis...">
-            <button class="btn-send" onclick="askJarvisPage()">ASK</button>
-        </div>
-    </div>
-
-    <div id="sideMenu" class="side-menu">
-        <h2 style="color:#ff0000;">ULTRA SETTINGS</h2>
-        <a href="#">About Sensi</a>
-        <a href="#">Social Media</a>
-        <button onclick="toggleMenu()" style="background:#444; color:#fff; border:none; padding:10px;">CLOSE</button>
-    </div>
-
-    <div id="main-content">
-        <div class="header" onclick="openJarvisPage()">
-            <div class="logo-box">
-                <img src="IMG_20260501_103729.jpg"> </div>
-            <div class="chat-title-top">JARVIS AI</div>
-            <div class="menu-icon" onclick="toggleMenu(); event.stopPropagation();">☰</div> </div>
-
-        <img src="IMG_20260501_103729.jpg" class="main-banner"> <div class="booster-panel">
-            <h3 style="color:#ff0000;">RED MAGIC BOOSTER</h3>
-            <select style="width:100%; padding:10px; margin-bottom:10px;">
-                <option>Free Fire MAX</option>
-            </select>
-            <button class="btn-play">PLAY FREE FIRE</button>
-        </div>
-    </div>
-
-    <script>
-        const API_KEY = "AlzaSyBCz0HRQf54D7zuj8uLwcIE6vUJSpxz4T3Y"; // आपकी Key
-
-        function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
-        function openJarvisPage() { document.getElementById('jarvis-page').style.display = 'flex'; }
-        function closeJarvisPage() { document.getElementById('jarvis-page').style.display = 'none'; }
-
-        async function askJarvisPage() {
-            let input = document.getElementById('userInputPage').value;
-            let display = document.getElementById('chat-output-page');
-            if(!input) return;
-
-            display.innerHTML += "<br><b>Aap:</b> " + input;
-            document.getElementById('userInputPage').value = "";
-
-            try {
-                // Gemini API Call
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: input + " (Jawab Hindi mein dein aur mera naam Sushil hai)" }] }] })
-                });
-                const data = await response.json();
-                display.innerHTML += "<br><b>Jarvis:</b> " + data.candidates[0].content.parts[0].text;
-                // Scrool to bottom
-                display.scrollTop = display.scrollHeight;
-            } catch (e) {
-                display.innerHTML += "<br><b>Jarvis:</b> Sorry Sushil Bhai, kuch error aa gaya.";
-            }
         }
     </script>
 </body>
