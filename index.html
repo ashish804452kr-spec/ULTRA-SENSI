@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTRA SENSI 200</title>
+    <style>
+        body { margin: 0; font-family: sans-serif; background-color: #fff; }
+        #login { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .login-logo { width: 140px; height: 140px; border-radius: 50%; border: 4px solid #000; margin-bottom: 20px; object-fit: cover; }
+        .g-btn { background: #fff; border: 1px solid #dadce0; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; display: flex; align-items: center; }
+        #app { background-color: #000; min-height: 100vh; color: #fff; display: none; padding: 15px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .inner-img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; }
+        .name { font-size: 14px; font-weight: bold; color: #fff; text-align: center; margin-top: 5px; }
+        .gun-box { background: #111; margin: 10px 0; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #222; }
+        .get-btn { background: #ff6600; color: #000; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="login">
+        <img src="IMG_20260501_103729.jpg" class="login-logo">
+        <button class="g-btn" onclick="startApp()">Continue with Google</button>
+        <p onclick="startApp()" style="color:gray; cursor:pointer; margin-top:15px;">Login as Guest</p>
+    </div>
+    <div id="app">
+        <div class="header">
+            <div style="font-size:24px;">☰</div>
+            <div>
+                <img src="IMG_20260501_103729.jpg" class="inner-img">
+                <div class="name">ULTRA LEGEND</div>
+            </div>
+            <div style="color:#00ebff; font-weight:bold;">CHAT AI</div>
+        </div>
+        <h2 style="text-align:center; color:#ff6600; margin-top:30px;">ULTRA SENSI 200</h2>
+        <div class="gun-box"><span>DESERT EAGLE</span> <button class="get-btn" onclick="alert('Sensi 200 Activated!')">GET</button></div>
+        <div class="gun-box"><span>UMP</span> <button class="get-btn" onclick="alert('Sensi 200 Activated!')">GET</button></div>
+        <div class="gun-box"><span>M1014</span> <button class="get-btn" onclick="alert('Sensi 200 Activated!')">GET</button></div>
+    </div>
+    <script>
+        function startApp() {
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            document.body.style.backgroundColor = "#000";
+        }
+    </script>
+</body>
+  </html>
+  
