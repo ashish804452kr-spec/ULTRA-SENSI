@@ -3,99 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA SENSI 200 AI</title>
+    <title>ULTRA SENSI 200 - RED MAGIC</title>
     <style>
-        /* Pura background black aur text white */
-        body { margin: 0; font-family: sans-serif; background-color: #000; color: #fff; }
+        body { margin: 0; font-family: 'Arial', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; }
         
-        /* Login Screen */
-        #login-page { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #000; }
-        .login-card { width: 80%; background: #111; padding: 20px; border-radius: 15px; border: 1px solid #333; text-align: center; }
-        input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #444; background: #222; color: #fff; }
-        
-        /* Header Setup */
-        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: #111; border-bottom: 2px solid #333; }
-        .logo-img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ff6600; object-fit: cover; }
-        .chat-title { color: #fff; font-weight: bold; font-size: 18px; }
-        .menu-btn { font-size: 25px; color: #ff6600; cursor: pointer; }
+        /* टॉप हेडर */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: #111; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 100; }
+        .logo-box img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ff0000; cursor: pointer; }
+        .chat-title { font-weight: bold; font-size: 18px; color: #fff; text-shadow: 0 0 10px #00ebff; }
+        .menu-icon { font-size: 28px; color: #ff0000; cursor: pointer; }
 
-        /* Content Sections */
-        .container { padding: 15px; }
-        .gun-box { background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid #ff6600; text-align: center; }
-        
-        /* Orange Button with Animation */
-        .btn-orange { background: #ff6600; color: #000; border: none; padding: 12px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%; }
-        .btn-orange:active { transform: scale(0.8); background: #fff; }
+        /* साइड मेनू */
+        .side-menu { position: fixed; right: -260px; top: 0; width: 250px; height: 100%; background: #111; transition: 0.4s; z-index: 1000; padding: 20px; border-left: 2px solid #ff0000; }
+        .side-menu.active { right: 0; }
+        .side-menu a { display: block; color: #fff; text-decoration: none; margin: 20px 0; font-size: 16px; border-bottom: 1px solid #333; padding-bottom: 5px; }
 
-        /* Hidden Sections */
-        #app-content { display: none; }
+        /* बैनर फोटो */
+        .main-banner { width: 100%; height: 200px; object-fit: cover; border-bottom: 3px solid #ff0000; }
+
+        /* गन सेक्शन (तिरछा स्टाइल) */
+        .section-title { padding: 10px; color: #ff0000; font-weight: bold; text-transform: uppercase; border-left: 5px solid #ff0000; margin: 15px 10px; }
+        .gun-container { display: flex; flex-wrap: wrap; justify-content: space-around; padding: 10px; }
+        .gun-card { width: 45%; background: #1a1a1a; margin: 5px; padding: 15px; border-radius: 10px; transform: skew(-5deg); border: 1px solid #333; text-align: center; }
+        .gun-card span { display: block; font-weight: bold; margin-bottom: 10px; font-size: 14px; }
+
+        /* रैम बटन्स */
+        .ram-box { display: flex; justify-content: space-between; padding: 0 15px; margin-bottom: 20px; }
+        .ram-btn { background: #222; border: 1px solid #ff0000; color: #fff; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
+
+        /* ऑरेंज बटन एनीमेशन */
+        .btn-gen { background: linear-gradient(to right, #ff6600, #ff0000); color: #fff; border: none; padding: 10px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-gen:active { transform: scale(0.9); box-shadow: 0 0 15px #ff6600; }
+
+        /* सर्च बार */
+        .search-box { padding: 15px; }
+        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #222; color: #fff; box-sizing: border-box; margin-bottom: 10px; }
+
+        /* जार्विस बॉक्स */
+        .jarvis-panel { background: #000; border: 1px solid #00ebff; margin: 15px; padding: 15px; border-radius: 12px; position: relative; }
+        .mike-btn { position: absolute; right: 15px; bottom: 15px; font-size: 25px; cursor: pointer; color: #00ebff; }
+
+        /* रेड मैजिक बूस्टर पैनल */
+        .booster-panel { background: #111; margin: 15px; padding: 20px; border-radius: 15px; border: 1px solid #ff0000; box-shadow: inset 0 0 10px #ff0000; }
+        .booster-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #222; }
         
-        /* Jarvis Text */
-        .jarvis-msg { border: 1px solid #00ebff; padding: 10px; border-radius: 8px; margin-top: 20px; color: #fff; font-size: 14px; }
+        /* टॉगल स्विच */
+        .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #444; transition: .4s; border-radius: 20px; }
+        input:checked + .slider { background-color: #ff0000; }
+
+        .play-btn { background: #ff0000; color: #fff; font-size: 20px; font-weight: bold; padding: 15px; width: 100%; border: none; border-radius: 10px; margin-top: 10px; cursor: pointer; box-shadow: 0 0 20px #ff0000; }
     </style>
 </head>
 <body>
 
-    <div id="login-page">
-        <div class="login-card">
-            <h2 style="color:#ff6600;">GMAIL LOGIN</h2>
-            <input type="email" id="userEmail" placeholder="Enter Gmail">
-            <input type="password" id="userPass" placeholder="Enter Password">
-            <button class="btn-orange" onclick="startApp()">LOGIN</button>
+    <div id="sideMenu" class="side-menu">
+        <h2 style="color:#ff0000;">ULTRA SETTINGS</h2>
+        <a href="#">About Ultra Sensi</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Sushil Official</a>
+        <a href="#">My YouTube Channel</a>
+        <a href="#">Instagram Profile</a>
+        <button onclick="toggleMenu()" class="btn-gen" style="margin-top:20px;">CLOSE</button>
+    </div>
+
+    <div class="header">
+        <div class="logo-box" onclick="alert('Opening your other apps...')">
+            <img src="IMG_20260501_103729.jpg">
+        </div>
+        <div class="chat-title">CHAT AI (GEMINI)</div>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <img src="IMG_20260501_103729.jpg" class="main-banner">
+
+    <div class="section-title">200 Sensi Guns</div>
+    <div class="gun-container">
+        <div class="gun-card">
+            <span>DESERT EAGLE</span>
+            <button class="btn-gen" onclick="generate('Desert Eagle 200% Sensi')">GENERATE</button>
+        </div>
+        <div class="gun-card">
+            <span>M1014 / M1887</span>
+            <button class="btn-gen" onclick="generate('One Tap Sensi Ready')">GENERATE</button>
+        </div>
+        <div class="gun-card">
+            <span>UMP / MP40</span>
+            <button class="btn-gen" onclick="generate('SMG Headshot 200%')">GENERATE</button>
+        </div>
+        <div class="gun-card">
+            <span>WOODPECKER</span>
+            <button class="btn-gen" onclick="generate('Auto Aim Config')">GENERATE</button>
         </div>
     </div>
 
-    <div id="app-content">
-        <div class="top-bar">
-            <div class="menu-btn">☰</div>
-            <div class="chat-title">CHAT AI</div>
-            <img src="IMG_20260501_103729.jpg" class="logo-img">
+    <div class="section-title">Mobile Optimization</div>
+    <div class="ram-box">
+        <button class="ram-btn" onclick="generate('2GB Optimized')">2GB</button>
+        <button class="ram-btn" onclick="generate('4GB Optimized')">4GB</button>
+        <button class="ram-btn" onclick="generate('6GB Optimized')">6GB</button>
+        <button class="ram-btn" onclick="generate('8GB+ Optimized')">8GB</button>
+    </div>
+    <div class="search-box">
+        <input type="text" placeholder="Search Mobile Model (e.g. Vivo Y21)...">
+        <button class="btn-gen" onclick="generate('Model Settings Found!')">GENERATE LIVE SENSI</button>
+    </div>
+
+    <div class="section-title">Character Skill AI</div>
+    <div class="search-box">
+        <input type="text" id="charInput" placeholder="Search Character (Alok, Raistar Style...)">
+        <button class="btn-gen" style="background:#00ebff; color:#000;" onclick="charSearch()">AI SEARCH</button>
+        <p id="charRes" style="font-size:12px; color:#ccc; margin-top:5px;"></p>
+    </div>
+
+    <div class="jarvis-panel">
+        <b style="color:#00ebff;">JARVIS (GEMINI):</b>
+        <p id="jText" style="color:#fff;">Hello Sushil, how can I help you in Free Fire today?</p>
+        <div class="mike-btn" onclick="startListen()">🎙️</div>
+    </div>
+
+    <div class="section-title">Red Magic Booster</div>
+    <div class="booster-panel">
+        <div class="booster-item">
+            <span>Voice Changer AI</span>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
         </div>
-
-        <div class="container">
-            <h3 style="color:#ff6600;">SELECT YOUR GUN (SENSI 200)</h3>
-            
-            <div class="gun-box">
-                <p>DESERT EAGLE / M1014</p>
-                <button class="btn-orange" onclick="applySensi('Sensi 200 Applied to Desert Eagle!')">GENERATE</button>
-            </div>
-
-            <div class="gun-box">
-                <p>UMP / MP40 / AK47</p>
-                <button class="btn-orange" onclick="applySensi('Sensi 200 Applied to SMG Guns!')">GENERATE</button>
-            </div>
-
-            <div class="gun-box">
-                <p>SEARCH MOBILE MODEL</p>
-                <input type="text" placeholder="Ex: Vivo Y21, Oppo, iPhone..." style="width:80%;">
-                <button class="btn-orange" onclick="applySensi('Mobile Settings Optimized!')">GENERATE</button>
-            </div>
-
-            <div class="jarvis-msg">
-                <b style="color:#00ebff;">JARVIS:</b> <span>Sushil, all systems ready. Sensitivity boost set to 200%. Click Generate to start.</span>
-            </div>
+        <div class="booster-item">
+            <span>Auto Headshot AI</span>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
         </div>
+        <div class="booster-item">
+            <span>Bypass Charger (Anti-Heat)</span>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+        <button class="play-btn" onclick="generate('Opening Free Fire...')">PLAY FREE FIRE</button>
     </div>
 
     <script>
-        function startApp() {
-            let email = document.getElementById('userEmail').value;
-            let pass = document.getElementById('userPass').value;
-            if(email !== "" && pass !== "") {
-                document.getElementById('login-page').style.display = 'none';
-                document.getElementById('app-content').style.display = 'block';
-            } else {
-                alert("Please enter Gmail and Password");
-            }
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('active');
         }
 
-        function applySensi(msg) {
-            alert("Loading Video Ad..."); // Ad ka feeling dene ke liye
+        function generate(msg) {
+            alert("Red Magic Ad Loading...");
             setTimeout(() => {
-                alert(msg + " | Headshot Rate Increased!");
-            }, 1500);
+                alert(msg + " - Settings Activated!");
+            }, 2000);
+        }
+
+        function charSearch() {
+            let val = document.getElementById('charInput').value.toLowerCase();
+            let res = document.getElementById('charRes');
+            if(val.includes('alok')) res.innerText = "Best Combo: Alok + Kelly + Tatsuya + Luna.";
+            else res.innerText = "Character data analyzed by Gemini. Use High DPI for this skill.";
+        }
+
+        function startListen() {
+            document.getElementById('jText').innerText = "Jarvis is listening to Sushil...";
+            setTimeout(() => {
+                document.getElementById('jText').innerText = "I have saved your strategy, Sushil. All systems online.";
+            }, 3000);
         }
     </script>
 </body>
-                                                                   </html>
+</html>
+
                                                                    
