@@ -222,3 +222,226 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTRA SENSI - JARVIS PRO EDITION</title>
+    <style>
+        /* --- CSS: MODERN GAMING LOOK --- */
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; }
+        
+        /* Main Header */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #0a0a0a; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 100; cursor: pointer; }
+        .logo-box img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ff0000; box-shadow: 0 0 10px #ff0000; }
+        .chat-title-top { font-weight: bold; font-size: 20px; color: #fff; text-shadow: 0 0 8px #ff0000; letter-spacing: 1px; }
+        .menu-icon { font-size: 35px; color: #ff0000; cursor: pointer; }
+
+        /* Jarvis Dedicated Chat Page */
+        #jarvis-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; }
+        .chat-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #00ebff; background: #0a0a0a; }
+        #chat-output-page { flex: 1; padding: 20px; overflow-y: auto; color: #fff; font-size: 16px; line-height: 1.6; scroll-behavior: smooth; }
+        .chat-input-area-page { display: flex; padding: 15px; background: #111; border-top: 1px solid #00ebff; gap: 10px; align-items: center; }
+        .chat-input-area-page input { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #00ebff; background: #222; color: #fff; font-size: 16px; }
+        .btn-send { background: #00ebff; color: #000; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .mike-btn { background: #00ebff; color: #000; border: none; padding: 10px; border-radius: 50%; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        /* Fake Ad Screen */
+        #ad-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 4000; justify-content: center; align-items: center; flex-direction: column; text-align: center; }
+        .ad-box { width: 85%; background: #fff; color: #000; padding: 20px; border-radius: 15px; position: relative; }
+        .close-ad { position: absolute; top: -10px; right: -10px; background: #ff0000; color: #fff; border: none; padding: 5px 10px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+
+        /* Content Sections */
+        .content { padding: 15px; }
+        .card { background: #111; border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #222; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .section-title { font-weight: bold; color: #ff0000; font-size: 18px; margin-bottom: 15px; text-transform: uppercase; border-left: 4px solid #ff0000; padding-left: 10px; }
+        
+        /* Booster Controls */
+        .booster-box { background: #0a0a0a; border: 2px solid #ff0000; border-radius: 20px; padding: 25px; box-shadow: inset 0 0 20px rgba(255,0,0,0.2); }
+        .toggle-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+        .switch { position: relative; width: 50px; height: 26px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #333; transition: 0.4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background: white; transition: 0.4s; border-radius: 50%; }
+        input:checked + .slider { background: #ff0000; }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        select, .btn-main { width: 100%; padding: 15px; border-radius: 10px; font-size: 16px; margin-top: 10px; border: none; box-sizing: border-box; }
+        select { background: #222; color: #fff; border: 1px solid #444; }
+        .btn-main { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-main:active { transform: scale(0.95); }
+
+        /* Side Menu */
+        .side-menu { position: fixed; right: -300px; top: 0; width: 280px; height: 100%; background: #050505; transition: 0.4s; z-index: 1000; padding: 30px; border-left: 3px solid #ff0000; }
+        .side-menu.active { right: 0; }
+        .side-menu a { display: block; color: #fff; text-decoration: none; margin-bottom: 25px; font-size: 18px; padding: 10px; border-bottom: 1px solid #222; }
+    </style>
+</head>
+<body>
+
+    <div id="ad-screen">
+        <div class="ad-box">
+            <button class="close-ad" onclick="closeAd()">X</button>
+            <h2 style="margin-top:0;">SPONSORED AD</h2>
+            <img src="https://via.placeholder.com/250x150?text=Special+Gaming+Offer" style="width:100%; border-radius:10px;">
+            <p>Get Free Emotes and Gun Skins today! Click to Download.</p>
+            <button style="background:#00c853; color:#fff; border:none; padding:10px 20px; border-radius:5px; font-weight:bold;">INSTALL NOW</button>
+        </div>
+        <p style="color:#888; font-size:12px; margin-top:15px;">Ad will close automatically in 5 seconds...</p>
+    </div>
+
+    <div id="jarvis-page">
+        <div class="chat-header">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <img src="IMG_20260501_103729.jpg" style="width:40px; height:40px; border-radius:50%; border:2px solid #00ebff;">
+                <span style="color:#00ebff; font-weight:bold; font-size:18px;">JARVIS AI</span>
+            </div>
+            <button onclick="closeJarvisPage()" style="background:#333; color:#fff; border:none; padding:8px 15px; border-radius:5px; font-weight:bold;">BACK</button>
+        </div>
+        <div id="chat-output-page">
+            <div style="color:#00ebff;"><b>Jarvis:</b> नमस्ते सुशील भाई! यह आपका नया चैट पेज है। पूछिए, आज मैं आपके गेम के लिए क्या कर सकता हूँ?</div>
+        </div>
+        <div class="chat-input-area-page">
+            <input type="text" id="userInputPage" placeholder="Jarvis से कुछ भी पूछें...">
+            <button class="btn-send" onclick="askJarvis()">ASK</button>
+            <button class="mike-btn" onclick="startVoice()">🎙️</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div class="header" onclick="openJarvisPage()">
+            <div class="logo-box"><img src="IMG_20260501_103729.jpg"></div>
+            <div class="chat-title-top">JARVIS AI</div>
+            <div class="menu-icon" onclick="toggleMenu(); event.stopPropagation();">☰</div>
+        </div>
+
+        <div class="content">
+            <img src="IMG_20260501_103729.jpg" style="width:100%; border-radius:15px; border:2px solid #333; margin-bottom:20px;">
+
+            <div class="card">
+                <div class="section-title">Sensi Generator 200%</div>
+                <select id="ramSelect">
+                    <option value="4">RAM 4GB</option>
+                    <option value="6">RAM 6GB</option>
+                    <option value="8">RAM 8GB+</option>
+                </select>
+                <button class="btn-main" onclick="showAd('Sensi applied successfully!')">GENERATE NOW</button>
+            </div>
+
+            <div class="card booster-box">
+                <div class="section-title" style="color:#fff;">Red Magic Booster</div>
+                <div class="toggle-item">
+                    <span>Auto Headshot AI</span>
+                    <label class="switch"><input type="checkbox" id="headshotToggle"><span class="slider"></span></label>
+                </div>
+                <div class="toggle-item">
+                    <span>Voice Changer (Robot)</span>
+                    <label class="switch"><input type="checkbox" id="voiceToggle" checked><span class="slider"></span></label>
+                </div>
+                <div class="toggle-item">
+                    <span>Ultra FPS Boost</span>
+                    <label class="switch"><input type="checkbox" id="fpsToggle"><span class="slider"></span></label>
+                </div>
+
+                <p style="margin-top:20px; font-size:14px; color:#aaa;">Select Game to Launch:</p>
+                <select id="gameSelect">
+                    <option value="">-- Choose Your Game --</option>
+                    <option value="freefire">Free Fire</option>
+                    <option value="freefiremax">Free Fire MAX</option>
+                </select>
+                <button class="btn-main" style="background:#ff0000; margin-top:20px;" onclick="playGame()">PLAY FREE FIRE</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="sideMenu" class="side-menu">
+        <h2 style="color:#ff0000; border-bottom:1px solid #333; padding-bottom:10px;">ULTRA MENU</h2>
+        <a href="https://www.instagram.com/ultrax111ff?igsh=MWd0eHBqOXE4Y2R1cQ==" target="_blank">My Instagram</a>
+        <a href="https://www.youtube.com/@ULTRALEGEND111" target="_blank">My YouTube</a>
+        <a href="javascript:void(0)" onclick="alert('Policy: No Data Collected.')">App Policy</a>
+        <button class="btn-main" onclick="toggleMenu()" style="background:#333; margin-top:50px;">CLOSE MENU</button>
+    </div>
+
+    <script>
+        // आपकी सही API Key
+        const API_KEY = "AlzaSyBCz0HRQf54D7zuj8uLwcIE6vUJSpxz4T3Y";
+
+        function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
+        function openJarvisPage() { document.getElementById('jarvis-page').style.display = 'flex'; }
+        function closeJarvisPage() { document.getElementById('jarvis-page').style.display = 'none'; }
+
+        // Ad Logic
+        function showAd(successMsg) {
+            document.getElementById('ad-screen').style.display = 'flex';
+            setTimeout(() => {
+                closeAd();
+                alert(successMsg);
+            }, 5000); // 5 सेकंड बाद बंद होगा
+        }
+        function closeAd() { document.getElementById('ad-screen').style.display = 'none'; }
+
+        // Game Launch Logic
+        function playGame() {
+            let game = document.getElementById('gameSelect').value;
+            let headshot = document.getElementById('headshotToggle').checked;
+
+            if(!game) {
+                alert("पहले गेम सिलेक्ट करें (Free Fire या MAX)!");
+                return;
+            }
+
+            let message = "Launching " + (game === 'freefire' ? 'Free Fire' : 'Free Fire MAX') + "...\n";
+            if(headshot) message += "AI Auto Headshot: ON\n";
+            message += "Booster Active!";
+            
+            alert(message);
+            // मोबाइल में ऐप खोलने की कोशिश
+            window.location.href = game === 'freefire' ? "intent:#Intent;package=com.dts.freefireth;end" : "intent:#Intent;package=com.dts.freefiremax;end";
+        }
+
+        // Asli Gemini AI Logic
+        async function askJarvis() {
+            let input = document.getElementById('userInputPage').value;
+            let display = document.getElementById('chat-output-page');
+            if(!input) return;
+
+            display.innerHTML += `<div style="text-align:right; margin:15px 0;"><span style="background:#333; padding:10px 15px; border-radius:10px; border:1px solid #444;">${input}</span></div>`;
+            document.getElementById('userInputPage').value = "";
+            display.scrollTop = display.scrollHeight;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: "Mera naam Sushil hai. Gaming expert ki tarah Hindi mein jawab dein. Question: " + input }] }] })
+                });
+                const data = await response.json();
+                let reply = data.candidates[0].content.parts[0].text;
+                display.innerHTML += `<div style="text-align:left; margin:15px 0; color:#00ebff;"><b>Jarvis:</b> ${reply}</div>`;
+                display.scrollTop = display.scrollHeight;
+                speak(reply);
+            } catch (e) {
+                display.innerHTML += `<div style="color:#ff0000; font-weight:bold;">Error: API Key check karein ya Internet dekhein.</div>`;
+            }
+        }
+
+        // Voice Recognition (🎙️)
+        function startVoice() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'hi-IN';
+            recognition.onresult = (event) => {
+                document.getElementById('userInputPage').value = event.results[0][0].transcript;
+                askJarvis();
+            };
+            recognition.start();
+        }
+
+        function speak(text) {
+            const msg = new SpeechSynthesisUtterance(text);
+            msg.lang = 'hi-IN';
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+</body>
+</html>
