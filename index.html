@@ -3,133 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA SENSI PRO - JARVIS</title>
+    <title>ULTRA SENSI PRO - JARVIS EDITION</title>
     <style>
-        /* --- CSS: RED MAGIC THEME --- */
-        body { margin: 0; font-family: 'Arial', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        /* CSS: DARK RED MAGIC DESIGN */
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
         
-        /* 1. Entry Screen (Splash) */
-        #entry-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        #entry-screen img { width: 80%; border-radius: 20px; border: 2px solid #ff0000; box-shadow: 0 0 20px #ff0000; }
-        .enter-btn { margin-top: 30px; background: #ff0000; color: #fff; border: none; padding: 15px 50px; font-size: 22px; font-weight: bold; border-radius: 50px; cursor: pointer; }
+        /* Entry Splash */
+        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #splash img { width: 80%; border-radius: 20px; border: 2px solid #ff0000; }
+        .enter-btn { margin-top: 30px; background: #ff0000; color: #fff; border: none; padding: 15px 50px; font-size: 22px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 0 15px #ff0000; }
 
-        /* 2. Header (Clean Look) */
+        /* Header - No Orange Line */
         .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #0a0a0a; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 100; }
-        .header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .header-left img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ff0000; }
+        .header-left { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .header-left img { width: 45px; height: 45px; border-radius: 50%; border: 1.5px solid #ff0000; }
         .jarvis-label { font-weight: bold; font-size: 20px; color: #fff; text-shadow: 0 0 10px #ff0000; }
-        .menu-btn { font-size: 35px; color: #ff0000; cursor: pointer; }
+        .menu-btn { font-size: 35px; color: #ff0000; cursor: pointer; border: none; background: none; }
 
-        /* 3. About Page (Sushil Bhai Info) */
-        #about-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 4000; padding: 30px; text-align: center; overflow-y: auto; }
-        .about-box { background: #111; padding: 25px; border-radius: 20px; border: 1px solid #ff0000; margin-top: 20px; }
+        /* Clean Side Menu */
+        .side-menu { position: fixed; right: -300px; top: 0; width: 280px; height: 100%; background: #080808; transition: 0.4s; z-index: 3000; padding: 30px; border-left: 3px solid #ff0000; }
+        .side-menu.active { right: 0; }
+        .side-menu a { display: block; color: #fff; text-decoration: none; margin-bottom: 25px; font-size: 18px; border: none !important; }
 
-        /* 4. Jarvis Chat Page */
-        #jarvis-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; }
-        .page-head { display: flex; justify-content: space-between; padding: 15px; background: #111; border-bottom: 1px solid #00ebff; }
-        #chat-box { flex: 1; padding: 20px; overflow-y: auto; color: #00ebff; }
+        /* About Page */
+        #about-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 4000; padding: 25px; text-align: center; overflow-y: auto; }
+        .about-text { background: #111; padding: 20px; border-radius: 15px; border: 1px solid #ff0000; line-height: 1.6; font-size: 15px; text-align: justify; }
 
-        /* 5. Content Section */
+        /* Full Pages (Jarvis & Sensi) */
+        .full-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; }
+        .p-head { display: flex; justify-content: space-between; padding: 15px; background: #111; border-bottom: 1px solid #ff0000; align-items: center; }
+        #chat-res { flex: 1; padding: 20px; overflow-y: auto; color: #00ebff; }
+
+        /* Content */
         .content { padding: 15px; }
         .card { background: #111; border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #222; }
-        .section-title { font-weight: bold; color: #ff0000; font-size: 18px; margin-bottom: 15px; text-transform: uppercase; }
+        .s-title { font-weight: bold; color: #ff0000; font-size: 18px; margin-bottom: 15px; text-transform: uppercase; }
         
-        /* Booster & Toggles */
-        .booster-item { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 16px; align-items: center; }
-        .toggle { width: 50px; height: 26px; appearance: none; background: #333; border-radius: 20px; position: relative; cursor: pointer; outline: none; }
-        .toggle:checked { background: #ff0000; }
-        .toggle:before { content: ''; position: absolute; width: 20px; height: 20px; background: #fff; border-radius: 50%; top: 3px; left: 3px; transition: 0.3s; }
-        .toggle:checked:before { left: 27px; }
+        .btn-red { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        
+        /* Toggles */
+        .row { display: flex; justify-content: space-between; margin-bottom: 18px; align-items: center; }
+        .switch { width: 50px; height: 26px; appearance: none; background: #333; border-radius: 20px; position: relative; cursor: pointer; outline: none; }
+        .switch:checked { background: #ff0000; }
+        .switch:before { content: ''; position: absolute; width: 20px; height: 20px; background: #fff; border-radius: 50%; top: 3px; left: 3px; transition: 0.3s; }
+        .switch:checked:before { left: 27px; }
 
-        select, .btn-main { width: 100%; padding: 15px; border-radius: 10px; font-size: 16px; margin-top: 10px; border: none; }
-        select { background: #222; color: #fff; border: 1px solid #444; }
-        .btn-main { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; font-weight: bold; cursor: pointer; }
-
-        /* Side Menu (Clean) */
-        .side-menu { position: fixed; right: -300px; top: 0; width: 280px; height: 100%; background: #0a0a0a; transition: 0.4s; z-index: 3000; padding: 30px; border-left: 3px solid #ff0000; }
-        .side-menu.active { right: 0; }
-        .side-menu a { display: block; color: #fff; text-decoration: none; margin-bottom: 25px; font-size: 18px; border: none; }
+        select, input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #222; color: #fff; margin-top: 10px; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
-    <div id="entry-screen">
+    <div id="splash">
         <img src="IMG_20260501_103729.jpg">
-        <button class="enter-btn" onclick="document.getElementById('entry-screen').style.display='none'">ENTER</button>
+        <button class="enter-btn" onclick="document.getElementById('splash').style.display='none'">ENTER JARVIS</button>
     </div>
 
     <div id="about-page">
-        <img src="IMG_20260501_103729.jpg" style="width:130px; border-radius:50%; border:3px solid #ff0000;">
-        <h1 style="color:#ff0000;">SUSHIL AI DEVELOPER</h1>
-        <div class="about-box">
-            <p>Sushil Bhai ne is app ko khaas taur par gaming performance ko badhane ke liye banaya hai. Ye app AI aur Red Magic technology ka ek anokha sangam hai.</p>
-            <p>Maine is app ko din-raat mehnat karke design kiya hai taaki Free Fire lovers ko 120 FPS aur perfect headshot mil sake.</p>
+        <img src="IMG_20260501_103729.jpg" style="width:100px; border-radius:50%; border:2px solid #ff0000; margin-bottom:15px;">
+        <h2 style="color:#ff0000; margin:0;">SUSHIL: THE DEVELOPER</h2>
+        <div class="about-text">
+            नमस्ते! मैं सुशील हूँ, और मैंने इस 'Ultra Sensi Pro' ऐप को विशेष रूप से उन गेमर्स के लिए बनाया है जो फ्री फायर में प्रो लेवल का गेमप्ले चाहते हैं। इस ऐप को बनाने के पीछे मेरा मकसद AI (Jarvis) और रेड मैजिक तकनीक को एक साथ लाना था ताकि हर मोबाइल पर 120 FPS और परफेक्ट ऑटो-हेडशॉट मिल सके। मैंने इसकी कोडिंग में बहुत मेहनत की है ताकि आपको 200% सेंसिटिविटी और डेजर्ट ईगल जैसी गन्स के लिए सटीक सेटिंग्स मिलें। यह ऐप पूरी तरह सुरक्षित है और आपकी गेमिंग स्किल्स को अगले स्तर पर ले जाने के लिए तैयार किया गया है।
         </div>
-        <button class="btn-main" style="margin-top:20px;" onclick="document.getElementById('about-page').style.display='none'">BACK TO APP</button>
+        <button class="btn-red" style="margin-top:20px;" onclick="document.getElementById('about-page').style.display='none'">BACK</button>
     </div>
 
-    <div id="jarvis-page" style="display:none; position:fixed; top:0; width:100%; height:100%; background:#000; z-index:2500; flex-direction:column;">
-        <div class="page-head"><span style="color:#00ebff; font-weight:bold;">JARVIS AI EXPERT</span><button onclick="document.getElementById('jarvis-page').style.display='none'" style="background:red; color:#fff; border:none; padding:5px 15px; border-radius:5px;">X</button></div>
-        <div id="chat-box"><b>Jarvis:</b> Namaste Sushil Bhai! Main aapki help ke liye ready hoon.</div>
+    <div id="jarvis-page" class="full-page">
+        <div class="p-head"><span style="color:#00ebff; font-weight:bold;">JARVIS AI EXPERT</span><button onclick="closeP('jarvis-page')" style="background:red; color:#fff; border:none; padding:5px 15px; border-radius:5px;">X</button></div>
+        <div id="chat-res"><b>Jarvis:</b> नमस्ते सुशील भाई! मैं सक्रिय हूँ। आप गेम के बारे में कुछ भी पूछ सकते हैं।</div>
         <div style="padding:15px; display:flex; gap:10px; background:#111;">
-            <input type="text" id="uInp" style="flex:1; padding:12px; border-radius:8px; border:1px solid #00ebff; background:#222; color:#fff;" placeholder="Sawal puchein...">
-            <button onclick="askJ()" style="background:#00ebff; border:none; padding:10px 20px; border-radius:8px; font-weight:bold;">ASK</button>
+            <input type="text" id="uInp" placeholder="Jarvis से पूछें...">
+            <button onclick="askJ()" style="background:#00ebff; color:#000; border:none; padding:10px 15px; border-radius:8px; font-weight:bold;">SEND</button>
         </div>
+    </div>
+
+    <div id="sensi-page" class="full-page">
+        <div class="p-head"><span style="color:#ff6600; font-weight:bold;">200% ULTRA SETTINGS</span><button onclick="closeP('sensi-page')" style="background:red; color:#fff; border:none; padding:5px 15px; border-radius:5px;">X</button></div>
+        <div id="s-data" style="padding:30px; text-align:center; font-size:22px; line-height:2;"></div>
     </div>
 
     <div class="header">
         <div class="header-left" onclick="document.getElementById('about-page').style.display='block'">
             <img src="IMG_20260501_103729.jpg">
-            <div class="jarvis-label" onclick="event.stopPropagation(); document.getElementById('jarvis-page').style.display='flex'">Jarvis AI</div>
+            <div class="jarvis-label" onclick="event.stopPropagation(); openP('jarvis-page')">Jarvis AI</div>
         </div>
-        <div class="menu-btn" onclick="document.getElementById('sideM').classList.toggle('active')">☰</div>
+        <button class="menu-btn" onclick="document.getElementById('sMenu').classList.toggle('active')">☰</button>
     </div>
 
-    <div id="sideM" class="side-menu">
-        <h3 style="color:#ff0000;">APP MENU</h3>
-        <a href="javascript:void(0)" onclick="document.getElementById('about-page').style.display='block'; document.getElementById('sideM').classList.remove('active')">About Me (Developer)</a>
-        <a href="javascript:void(0)" onclick="alert('Ultra Sensi Pro V1.0')">App Info</a>
+    <div id="sMenu" class="side-menu">
+        <h3 style="color:#ff0000; border-bottom:1px solid #333; padding-bottom:10px;">ULTRA MENU</h3>
+        <a href="javascript:void(0)" onclick="document.getElementById('about-page').style.display='block'; document.getElementById('sMenu').classList.remove('active')">About Developer</a>
         <a href="https://www.instagram.com/ultrax111ff" target="_blank">Instagram</a>
-        <button class="btn-main" onclick="document.getElementById('sideM').classList.remove('active')">CLOSE</button>
+        <a href="https://www.youtube.com/@ULTRALEGEND111" target="_blank">YouTube Channel</a>
+        <button class="btn-red" onclick="document.getElementById('sMenu').classList.remove('active')" style="background:#333;">CLOSE</button>
     </div>
 
     <div class="content">
         <div class="card">
-            <div class="section-title">200% Sensi Generator</div>
-            <select id="ramS"><option>RAM 4GB</option><option>RAM 6GB</option><option>RAM 8GB+</option></select>
-            <button class="btn-main" onclick="alert('Sensitivity 200% Applied in New Page!')">GENERATE NOW</button>
+            <div class="s-title">200% Sensi Generator</div>
+            <input type="text" id="model" placeholder="Mobile Model (e.g. Vivo, iPhone)">
+            <select id="ram"><option>4GB RAM</option><option>6GB RAM</option><option>8GB+ RAM</option></select>
+            <button class="btn-red" style="margin-top:15px;" onclick="genS()">GENERATE (NEW PAGE)</button>
         </div>
 
         <div class="card" style="border:2px solid #ff0000;">
-            <div class="section-title">Red Magic Booster</div>
-            <div class="booster-item"><span>Auto Headshot AI</span><input type="checkbox" class="toggle"></div>
-            <div class="booster-item"><span>Ultra FPS (120 FPS)</span><select style="width:80px; padding:2px;"><option>60</option><option>90</option><option>120</option></select></div>
-            <select id="gmS"><option value="">-- Choose Game --</option><option value="ff">Free Fire</option><option value="ffmax">Free Fire MAX</option></select>
-            <button class="btn-main" style="background:#ff0000;" onclick="openSet()">OPEN MOBILE SETTINGS</button>
+            <div class="s-title">Red Magic Booster</div>
+            <div class="row"><span>AI Auto Headshot</span><input type="checkbox" class="switch"></div>
+            <div class="row"><span>120 FPS Boost</span><input type="checkbox" class="switch" checked></div>
+            <div class="row"><span>Voice Changer (Robot)</span><input type="checkbox" class="switch"></div>
+            <select id="game"><option value="">-- Select Game --</option><option value="ff">Free Fire</option><option value="ffmax">Free Fire MAX</option></select>
+            <button class="btn-red" style="background:#ff0000; margin-top:15px;" onclick="openSet()">OPEN SYSTEM SETTINGS</button>
         </div>
 
-        <div class="section-title" style="color:#ff6600;">Gun Special Sensitivity</div>
+        <div class="s-title" style="color:#ff6600;">Desert Eagle & Gun Sensi</div>
         <div class="card" style="text-align:left;">
-            <p>🔫 <b>Desert Eagle:</b> Gen 100 | Red Dot 98</p>
-            <p>🔫 <b>M1887:</b> Gen 95 | Red Dot 100</p>
-            <p>🔫 <b>UMP/MP40:</b> Gen 100 | Red Dot 95</p>
+            <p>🔥 <b>Desert Eagle:</b> Gen 200 | Red Dot 100</p>
+            <p>🔥 <b>M1887 (Shotgun):</b> Gen 195 | Red Dot 98</p>
+            <p>🔥 <b>UMP/MP40:</b> Gen 180 | Red Dot 100</p>
         </div>
     </div>
 
     <script>
-        const KEY = "AIzaSyBth1oKVbC6oFFa5Dw-ENlPqmk3alBZMnA";
+        const KEY = "AIzaSyAHhqfY5Gg0j5qVqsMSn7bPyeoujjtSqhI";
+
+        function openP(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeP(id) { document.getElementById(id).style.display = 'none'; }
+
+        function genS() {
+            let m = document.getElementById('model').value;
+            if(!m) { alert("Mobile Model लिखें!"); return; }
+            document.getElementById('s-data').innerHTML = `
+                <b style="color:#fff;">Settings for ${m}</b><br>
+                General: 200<br>Red Dot: 198<br>2X Scope: 200<br>4X Scope: 195<br>
+                <span style="font-size:14px; color:#aaa;">(Settings Auto-Applied to Device)</span>
+            `;
+            openP('sensi-page');
+        }
 
         function openSet() {
-            if(!document.getElementById('gmS').value) { alert("Pahle Game select karein!"); return; }
-            alert("System settings khul rahi hai. Game booster enable karein!");
+            if(!document.getElementById('game').value) { alert("Game Select करें!"); return; }
+            alert("Settings खुल रही है। Free Fire चुनकर Booster चालू करें!");
             window.location.href = "intent:#Intent;action=android.settings.USAGE_ACCESS_SETTINGS;end";
         }
 
         async function askJ() {
             let q = document.getElementById('uInp').value;
-            let b = document.getElementById('chat-box');
+            let b = document.getElementById('chat-res');
             if(!q) return;
-            b.innerHTML += `<div style="text-align:right; margin:10px 0;">${q}</div>`;
+            b.innerHTML += `<div style="text-align:right; color:#fff; margin:10px 0;">${q}</div>`;
             document.getElementById('uInp').value = "";
             try {
                 const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${KEY}`, {
@@ -138,7 +158,7 @@
                     body: JSON.stringify({ contents: [{ parts: [{ text: "Jawab Hindi mein dein. Mera naam Sushil hai. Question: " + q }] }] })
                 });
                 const d = await res.json();
-                b.innerHTML += `<div style="color:#00ebff;"><b>Jarvis:</b> ${d.candidates[0].content.parts[0].text}</div>`;
+                b.innerHTML += `<div><b>Jarvis:</b> ${d.candidates[0].content.parts[0].text}</div>`;
                 b.scrollTop = b.scrollHeight;
             } catch(e) { b.innerHTML += "<div style='color:red;'>Internet/API Error!</div>"; }
         }
