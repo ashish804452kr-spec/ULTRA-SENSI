@@ -3,261 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA SENSI PRO - FINAL BY SUSHIL</title>
-    <style>
-        /* --- CSS: GLOBAL STYLING --- */
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
-        
-        /* 1. Header: Left Logo, Center Jarvis, Right Menu */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: #0a0a0a; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 1000; }
-        .header img { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid #ff0000; cursor: pointer; }
-        .jarvis-title { font-weight: bold; font-size: 22px; color: #fff; text-shadow: 0 0 10px #ff0000; }
-        .menu-btn { font-size: 30px; color: #ff0000; background: none; border: none; cursor: pointer; }
-
-        /* 2. Main Large Photo */
-        .main-banner { width: 100%; text-align: center; padding: 10px 0; }
-        .main-banner img { width: 90%; border-radius: 20px; border: 2px solid #222; cursor: pointer; transition: 0.3s; }
-        .main-banner img:hover { border-color: #ff0000; }
-
-        /* 3. Global Search & RAM */
-        .search-area { padding: 15px; display: flex; gap: 10px; }
-        .search-box { flex: 2; }
-        .ram-box { flex: 1; }
-        input, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #111; color: #fff; box-sizing: border-box; }
-
-        /* 4. Brand List & Character Skill */
-        .container { padding: 0 15px; }
-        .section-title { color: #ff6600; font-weight: bold; margin: 15px 0 10px; display: block; border-left: 4px solid #ff6600; padding-left: 10px; }
-        .brand-list { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; scrollbar-width: none; }
-        .brand-item { background: #1a1a1a; padding: 8px 20px; border-radius: 20px; border: 1px solid #333; white-space: nowrap; }
-
-        /* 5. Name Generator & Action Buttons */
-        .action-btn { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 15px; }
-
-        /* 6. Full Page Overlays */
-        .full-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; }
-        .p-head { display: flex; justify-content: space-between; padding: 15px; background: #0a0a0a; border-bottom: 2px solid #ff6600; align-items: center; }
-        .p-body { flex: 1; padding: 20px; overflow-y: auto; text-align: center; }
-
-        /* Animation Loader */
-        #loader { display: none; margin: 20px auto; width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid #ff6600; border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Sensi Bars */
-        .bar-wrap { margin-bottom: 15px; text-align: left; }
-        .bar-info { display: flex; justify-content: space-between; color: #ffea00; font-weight: bold; margin-bottom: 5px; }
-        .bar-outer { background: #222; height: 15px; border-radius: 10px; width: 100%; overflow: hidden; }
-        .bar-inner { background: linear-gradient(90deg, #ff6600, #ffea00); height: 100%; width: 0; transition: 1.5s ease-out; }
-
-        /* Side Menu */
-        .side-menu { position: fixed; right: -320px; top: 0; width: 280px; height: 100%; background: #080808; transition: 0.4s; z-index: 3000; padding: 30px; border-left: 2px solid #ff0000; }
-        .side-menu.active { right: 0; }
-        .side-menu a { display: block; color: #fff; text-decoration: none; margin-bottom: 20px; font-size: 18px; }
-    </style>
-</head>
-<body>
-
-    <div class="header">
-        <img src="IMG_20260501_103729.jpg" onclick="showAppInfo()">
-        <div class="jarvis-title">Jarvis AI</div>
-        <button class="menu-btn" onclick="toggleMenu()">☰</button>
-    </div>
-
-    <div class="main-banner">
-        <img src="IMG_20260501_103729.jpg" id="mainBanner" onclick="showAppInfo()">
-    </div>
-
-    <div class="container">
-        <div class="search-area">
-            <div class="search-box">
-                <input type="text" id="mSearch" placeholder="Global Phone Search...">
-            </div>
-            <div class="ram-box">
-                <select id="ramSelect">
-                    <option>4GB RAM</option>
-                    <option>6GB RAM</option>
-                    <option>8GB+ RAM</option>
-                </select>
-            </div>
-        </div>
-
-        <span class="section-title">Popular Mobile Brands</span>
-        <div class="brand-list">
-            <div class="brand-item">iPhone</div>
-            <div class="brand-item">SAMSUNG</div>
-            <div class="brand-item">VIVO</div>
-            <div class="brand-item">XIAOMI</div>
-            <div class="brand-item">OPPO</div>
-            <div class="brand-item">REALME</div>
-        </div>
-
-        <span class="section-title">Character Skill AI</span>
-        <input type="text" id="cSearch" placeholder="Search Character (e.g. Alok, Wukong)">
-        
-        <button class="action-btn" onclick="startProcess()">GENERATE UNIQUE SENSI</button>
-        
-        <button class="action-btn" style="background: #222; border: 1px solid #ff6600;" onclick="openPage('namePage')">STYLISH NAME MAKER</button>
-    </div>
-
-    <div id="sideMenu" class="side-menu">
-        <h3 style="color:#ff0000; border-bottom: 1px solid #333; padding-bottom: 10px;">ULTRA MENU</h3>
-        <a href="javascript:void(0)" onclick="showAbout()">मेरे बारे में (Developer)</a>
-        <a href="javascript:void(0)" onclick="showAppInfo()">ऐप के बारे में</a>
-        <a href="https://www.instagram.com/ultrax111ff" target="_blank">Instagram Channel</a>
-        <a href="https://www.youtube.com/@ULTRALEGEND111" target="_blank">YouTube Channel</a>
-        <a href="javascript:void(0)" onclick="alert('Telegram link not available')">Telegram Channel</a>
-        <button class="action-btn" onclick="toggleMenu()" style="background:#111;">CLOSE</button>
-    </div>
-
-    <div id="sensiPage" class="full-page">
-        <div class="p-head">
-            <span style="color:#ff6600; font-weight:bold;">AI GENERATING SENSI...</span>
-            <button onclick="closePage('sensiPage')" style="background:red; border:none; color:#fff; padding:5px 12px; border-radius:5px;">X</button>
-        </div>
-        <div class="p-body">
-            <div id="loader"></div>
-            <div id="sensiData" style="display:none;"></div>
-            <div id="sensiFooter" style="display:none; margin-top:30px;">
-                <img src="IMG_20260501_103729.jpg" style="width:85%; border-radius:15px; border:2px solid #ff6600;">
-                <p style="color:#666;">© Developed by Sushil</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="namePage" class="full-page">
-        <div class="p-head">
-            <span style="color:#ffea00; font-weight:bold;">NAME TITLE MAKER</span>
-            <button onclick="closePage('namePage')" style="background:red; border:none; color:#fff; padding:5px 12px; border-radius:5px;">X</button>
-        </div>
-        <div class="p-body">
-            <input type="text" id="nameInput" placeholder="Enter Name..." oninput="genNames()">
-            <div id="nameList" style="margin-top:20px; text-align:left;"></div>
-        </div>
-    </div>
-
-    <div id="infoPage" class="full-page">
-        <div class="p-head">
-            <span style="color:#ff0000; font-weight:bold;">APP POLICY & INFO</span>
-            <button onclick="closePage('infoPage')" style="background:red; border:none; color:#fff; padding:5px 12px; border-radius:5px;">X</button>
-        </div>
-        <div class="p-body" style="text-align:justify; line-height:1.6;">
-            <img src="IMG_20260501_103729.jpg" style="width:100px; border-radius:50%; border:2px solid #ff0000; display:block; margin: 0 auto 20px;">
-            यह 'Ultra Sensi Pro' ऐप विशेष रूप से गेमिंग परफॉरमेंस को सुधारने के लिए बनाया गया है। इसमें AI तकनीक का उपयोग किया गया है ताकि हर यूजर को उसके डिवाइस के हिसाब से सबसे यूनिक और बेस्ट सेंसिटिविटी मिल सके। इस ऐप का मकसद गेमर्स की मदद करना है। आप सेटिंग्स को अपनी जरूरत के अनुसार बदल सकते हैं।
-        </div>
-    </div>
-
-    <script>
-        function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
-        function openPage(id) { document.getElementById(id).style.display = 'flex'; }
-        function closePage(id) { document.getElementById(id).style.display = 'none'; }
-
-        function startProcess() {
-            let m = document.getElementById('mSearch').value;
-            if(!m) { alert("कृपया मोबाइल मॉडल लिखें!"); return; }
-            openPage('sensiPage');
-            document.getElementById('loader').style.display = 'block';
-            document.getElementById('sensiData').style.display = 'none';
-            document.getElementById('sensiFooter').style.display = 'none';
-
-            setTimeout(() => {
-                document.getElementById('loader').style.display = 'none';
-                generateSensi();
-            }, 3000); // 3 Second Animation
-        }
-
-        function generateSensi() {
-            let html = `<h3>Unique Settings for ${document.getElementById('mSearch').value}</h3>`;
-            const items = ["General", "Red Dot", "2x Scope", "4x Scope", "Sniper", "Free Look"];
-            
-            items.forEach(item => {
-                let val = Math.floor(Math.random() * (200 - 180 + 1)) + 180; // Always unique between 180-200
-                html += `
-                <div class="bar-wrap">
-                    <div class="bar-info"><span>${item}</span><span>${val}</span></div>
-                    <div class="bar-outer"><div class="bar-inner" style="width:${(val/200)*100}%"></div></div>
-                </div>`;
-            });
-
-            document.getElementById('sensiData').innerHTML = html;
-            document.getElementById('sensiData').style.display = 'block';
-            document.getElementById('sensiFooter').style.display = 'block';
-        }
-
-        function genNames() {
-            let n = document.getElementById('nameInput').value;
-            let list = document.getElementById('nameList');
-            if(!n) { list.innerHTML = ""; return; }
-            const styles = [`亗 ${n} 亗`, `꧁ ${n} ꧂`, `⚡ ${n} ⚡`, `〆${n}〆`, `『 ${n} 』` ];
-            list.innerHTML = styles.map(s => `<div style="background:#111; padding:15px; margin-bottom:10px; border-radius:10px; border-left:3px solid #ffea00;">${s}</div>`).join('');
-        }
-
-        function showAbout() {
-            alert("मेरे बारे में:\nनमस्ते, मैं सुशील हूँ। मैंने गेमिंग और आईफोन के अपने अनुभव को मिलाकर यह 'AI Sensi App' बनाया है। मेरा लक्ष्य गेमिंग को आसान बनाना है।");
-        }
-
-        function showAppInfo() { openPage('infoPage'); }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA SENSI PRO - BY SUSHIL</title>
+    <title>JARVIS AI - ULTRA SENSI PRO</title>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5819410852877244" crossorigin="anonymous"></script>
 
     <style>
-        /* --- CSS: PREMIUM DESIGN --- */
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; overflow-x: hidden; padding-bottom: 70px; }
         
-        /* 1. Header: Left Photo, Center Jarvis, Right Menu */
+        /* Header & Banner */
         .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: #0a0a0a; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 1000; }
-        .header img { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid #ff0000; cursor: pointer; }
-        .jarvis-title { font-weight: bold; font-size: 22px; color: #fff; text-shadow: 0 0 10px #ff0000; }
+        .header img { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid #ff0000; }
+        .jarvis-title { font-weight: bold; font-size: 22px; text-shadow: 0 0 10px #ff0000; }
         .menu-btn { font-size: 30px; color: #ff0000; background: none; border: none; cursor: pointer; }
 
-        /* 2. Main Banner */
         .main-banner { width: 100%; text-align: center; padding: 10px 0; }
-        .main-banner img { width: 90%; border-radius: 20px; border: 2px solid #222; cursor: pointer; }
+        .main-banner img { width: 90%; border-radius: 20px; border: 2px solid #222; }
 
-        /* 3. Search & RAM Area */
-        .container { padding: 15px; }
-        .search-area { display: flex; gap: 10px; margin-bottom: 15px; }
-        input, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #111; color: #fff; box-sizing: border-box; }
+        /* Search & RAM Row */
+        .search-container { padding: 15px; }
+        .search-row { display: flex; gap: 8px; margin-bottom: 15px; }
+        input, select { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #111; color: #fff; font-size: 14px; }
+        select { flex: 0.5; }
 
-        /* 4. Action Buttons */
-        .action-btn { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 15px rgba(255,0,0,0.3); }
+        /* Action Buttons */
+        .action-btn { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 10px rgba(255,0,0,0.3); }
 
-        /* 5. Full Page Overlays */
+        /* Full Page Overlays */
         .full-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; }
-        .p-head { display: flex; justify-content: space-between; padding: 15px; background: #0a0a0a; border-bottom: 2px solid #ff6600; align-items: center; }
+        .p-head { display: flex; justify-content: space-between; padding: 15px; background: #0a0a0a; border-bottom: 2px solid #ff6600; }
         .p-body { flex: 1; padding: 20px; overflow-y: auto; text-align: center; }
 
-        /* AI Animation Loader */
-        #loader { display: none; margin: 20px auto; width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid #ff6600; border-radius: 50%; animation: spin 1s linear infinite; }
+        /* Animation & Sensi Bars */
+        #loader { display: none; margin: 30px auto; width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid #ff6600; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Sensi Bars Layout */
-        .bar-wrap { margin-bottom: 20px; text-align: left; }
+        .bar-wrap { margin-bottom: 15px; text-align: left; }
         .bar-info { display: flex; justify-content: space-between; color: #ffea00; font-weight: bold; margin-bottom: 5px; }
-        .bar-outer { background: #222; height: 18px; border-radius: 10px; width: 100%; overflow: hidden; }
+        .bar-outer { background: #222; height: 15px; border-radius: 10px; width: 100%; overflow: hidden; }
         .bar-inner { background: linear-gradient(90deg, #ff6600, #ffea00); height: 100%; width: 0; transition: 2s ease-out; }
-
-        /* Banner Ad Container */
-        .ad-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; text-align: center; z-index: 5000; border-top: 1px solid #333; padding-top: 5px; }
 
         /* Side Menu */
         .side-menu { position: fixed; right: -320px; top: 0; width: 280px; height: 100%; background: #080808; transition: 0.4s; z-index: 3000; padding: 30px; border-left: 2px solid #ff0000; }
         .side-menu.active { right: 0; }
         .side-menu a { display: block; color: #fff; text-decoration: none; margin-bottom: 20px; font-size: 18px; }
+
+        /* Ad Footer */
+        .ad-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; text-align: center; z-index: 5000; padding: 5px 0; border-top: 1px solid #333; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <img src="IMG_20260501_103729.jpg" onclick="openPage('infoPage')">
+        <img src="IMG_20260501_103729.jpg">
         <div class="jarvis-title">Jarvis AI</div>
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
     </div>
@@ -266,73 +62,58 @@
         <img src="IMG_20260501_103729.jpg" onclick="openPage('infoPage')">
     </div>
 
-    <div class="container">
-        <div class="search-area">
-            <input type="text" id="mSearch" placeholder="Search Global Phone Model...">
-            <select id="ramSelect" style="width: auto;">
-                <option>4GB RAM</option>
-                <option>6GB RAM</option>
-                <option>8GB+ RAM</option>
+    <div class="search-container">
+        <div class="search-row">
+            <input type="text" id="mSearch" placeholder="Enter Mobile Model...">
+            <select id="ramSelect">
+                <option>2GB</option><option>4GB</option>
+                <option selected>6GB</option><option>8GB</option>
+                <option>12GB+</option>
             </select>
         </div>
 
-        <button class="action-btn" onclick="startSensiProcess()">GENERATE UNIQUE SENSI</button>
-        <button class="action-btn" style="background: #222; border: 1px solid #ff6600;" onclick="openPage('namePage')">STYLISH NAME MAKER</button>
-        <button class="action-btn" style="background: #111; margin-top: 30px;" onclick="alert('Character Skill AI Opening...')">CHARACTER SKILL SEARCH</button>
+        <button class="action-btn" onclick="startSensiProcess()">GENERATE BEST SENSI</button>
+        
+        <div style="background:#111; padding:15px; border-radius:12px; margin-top:20px; border-left:4px solid #00f2ff;">
+            <p style="margin:0 0 10px; font-size:12px; color:#00f2ff;">JARVIS AI BRAIN (Memory Enabled)</p>
+            <div id="chatHistory" style="height:60px; overflow-y:auto; font-size:14px; color:#ccc; margin-bottom:10px;">नमस्ते सुशील! मैं आपका जार्विस हूँ। आप क्या पूछना चाहते हैं?</div>
+            <div style="display:flex; gap:5px;">
+                <input type="text" id="chatInput" placeholder="Ask Jarvis anything..." style="padding:8px;">
+                <button onclick="askJarvis()" style="background:#00f2ff; border:none; border-radius:8px; padding:0 15px; color:#000; font-weight:bold;">SEND</button>
+            </div>
+        </div>
+
+        <button class="action-btn" style="background:#222; border:1px solid #ff6600; margin-top:20px;" onclick="openPage('namePage')">100+ STYLISH NAMES</button>
     </div>
 
     <div id="sensiPage" class="full-page">
         <div class="p-head">
-            <span style="color:#ff6600; font-weight:bold;">AI GENERATING SENSI</span>
-            <button onclick="closePage('sensiPage')" style="background:red; color:#fff; border:none; padding:5px 12px; border-radius:5px;">X</button>
+            <span style="color:#ff6600; font-weight:bold;">AI SENSI ANALYZER</span>
+            <button onclick="closePage('sensiPage')" style="background:red; color:#fff; border:none; border-radius:5px; padding:5px 12px;">X</button>
         </div>
         <div class="p-body">
             <div id="loader"></div>
             <div id="sensiResult" style="display:none;"></div>
-            
-            <div style="margin: 20px 0;">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-5819410852877244"
-                     data-ad-slot="2004412073"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
-
-            <div id="sensiFooter" style="display:none;">
-                <img src="IMG_20260501_103729.jpg" style="width:85%; border-radius:15px; border:2px solid #ff6600; margin-top:20px;">
-                <p style="color:#666;">© Designed by Sushil</p>
+            <div id="sensiFooter" style="display:none; margin-top:30px;">
+                <p style="color:#ffea00; font-size:14px;">"Best settings for Headshots! Play 3 matches to master."</p>
+                <img src="IMG_20260501_103729.jpg" style="width:90%; border-radius:15px; border:2px solid #ff6600;">
             </div>
         </div>
     </div>
 
     <div id="namePage" class="full-page">
-        <div class="p-head">
-            <span style="color:#ffea00; font-weight:bold;">NAME MAKER</span>
-            <button onclick="closePage('namePage')" style="background:red; color:#fff; border:none; padding:5px 12px; border-radius:5px;">X</button>
-        </div>
+        <div class="p-head"><span style="color:#ffea00;">NAME STYLES</span><button onclick="closePage('namePage')">X</button></div>
         <div class="p-body">
-            <input type="text" id="nameIn" placeholder="Type Your Name..." oninput="genNames()">
-            <div id="nameRes" style="margin-top:20px;"></div>
-        </div>
-    </div>
-
-    <div id="infoPage" class="full-page">
-        <div class="p-head">
-            <span style="color:red; font-weight:bold;">ABOUT APP</span>
-            <button onclick="closePage('infoPage')" style="background:red; color:#fff; border:none; padding:5px 12px; border-radius:5px;">X</button>
-        </div>
-        <div class="p-body" style="text-align:justify; line-height:1.6;">
-            यह ऐप 'Ultra Sensi Pro' सुशील द्वारा विकसित किया गया है। यह AI तकनीक का उपयोग करके हर डिवाइस के लिए बेस्ट और यूनिक सेंसिटिविटी प्रदान करता है।
+            <input type="text" id="nameIn" placeholder="Type name..." oninput="generateNicknames()">
+            <div id="nameRes" style="margin-top:20px; text-align:left;"></div>
         </div>
     </div>
 
     <div id="sideMenu" class="side-menu">
-        <h3 style="color:red; border-bottom:1px solid #333; padding-bottom:10px;">MENU</h3>
-        <a href="javascript:void(0)" onclick="alert('Developer: Sushil')">About Me</a>
+        <h3 style="color:red;">MENU</h3>
+        <a href="javascript:void(0)" onclick="alert('Developer: Sushil')">App Owner</a>
         <a href="https://www.instagram.com/ultrax111ff" target="_blank">Instagram</a>
-        <a href="https://www.youtube.com/@ULTRALEGEND111" target="_blank">YouTube</a>
+        <a href="https://www.youtube.com/@ULTRALEGEND111" target="_blank">YouTube Channel</a>
         <button class="action-btn" onclick="toggleMenu()" style="background:#111;">CLOSE</button>
     </div>
 
@@ -345,13 +126,26 @@
     </div>
 
     <script>
+        let chatMemory = [];
         function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
         function openPage(id) { document.getElementById(id).style.display = 'flex'; }
         function closePage(id) { document.getElementById(id).style.display = 'none'; }
 
+        function askJarvis() {
+            let inp = document.getElementById('chatInput');
+            let hist = document.getElementById('chatHistory');
+            if(!inp.value) return;
+            chatMemory.push("You: " + inp.value);
+            let reply = "Jarvis: सुशील भाई, " + inp.value + " के बारे में मेरा डेटा कहता है कि यह गेमिंग के लिए बेहतरीन है!";
+            chatMemory.push(reply);
+            hist.innerHTML = chatMemory.slice(-3).join('<br>');
+            inp.value = "";
+        }
+
         function startSensiProcess() {
             let m = document.getElementById('mSearch').value;
-            if(!m) return alert("मोबाइल मॉडल लिखें!");
+            let r = document.getElementById('ramSelect').value;
+            if(!m) return alert("कृपया मोबाइल मॉडल लिखें!");
             openPage('sensiPage');
             document.getElementById('loader').style.display = 'block';
             document.getElementById('sensiResult').style.display = 'none';
@@ -359,31 +153,29 @@
 
             setTimeout(() => {
                 document.getElementById('loader').style.display = 'none';
-                showSensi(m);
+                showSensi(m, r);
             }, 3000);
         }
 
-        function showSensi(device) {
-            let html = `<h3>${device} Master Sensi</h3>`;
-            const s = ["General", "Red Dot", "2x Scope", "4x Scope", "Sniper", "Free Look"];
-            s.forEach(t => {
-                let v = Math.floor(Math.random() * (200 - 180 + 1)) + 180; // Unique 200% logic
-                html += `<div class="bar-wrap">
-                    <div class="bar-info"><span>${t}</span><span>${v}</span></div>
-                    <div class="bar-outer"><div class="bar-inner" style="width:${(v/200)*100}%"></div></div>
-                </div>`;
+        function showSensi(device, ram) {
+            let html = `<h3 style="color:#ff6600;">AI Sensi for ${device} (${ram})</h3>`;
+            const types = ["General", "Red Dot", "2x Scope", "4x Scope", "Sniper", "Free Look"];
+            types.forEach(t => {
+                let v = Math.floor(Math.random() * (200 - 170 + 1)) + 170; // Unique 170-200
+                html += `<div class="bar-wrap"><div class="bar-info"><span>${t}</span><span>${v}</span></div>
+                         <div class="bar-outer"><div class="bar-inner" style="width:${(v/200)*100}%"></div></div></div>`;
             });
             document.getElementById('sensiResult').innerHTML = html;
             document.getElementById('sensiResult').style.display = 'block';
             document.getElementById('sensiFooter').style.display = 'block';
         }
 
-        function genNames() {
+        function generateNicknames() {
             let n = document.getElementById('nameIn').value;
-            let list = document.getElementById('nameRes');
-            if(!n) return list.innerHTML = "";
-            const styles = [`亗 ${n} 亗`, `꧁ ${n} ꧂`, `⚡ ${n} ⚡`, `〆${n}〆` ];
-            list.innerHTML = styles.map(s => `<div style="background:#111; padding:15px; margin-bottom:10px; border-radius:10px; border-left:4px solid #ffea00;">${s}</div>`).join('');
+            let res = document.getElementById('nameRes');
+            if(!n) return res.innerHTML = "";
+            const s = [`亗 ${n} 亗`, `꧁ ${n} ꧂`, `⚡ ${n} ⚡`, `〆${n}〆`, `『 ${n} 』`, `◥ ${n} ◤`];
+            res.innerHTML = s.map(st => `<div style="background:#111; padding:12px; border-radius:8px; margin-bottom:8px; border-left:3px solid #ffea00;">${st}</div>`).join('');
         }
     </script>
 </body>
