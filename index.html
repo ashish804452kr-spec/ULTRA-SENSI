@@ -3,162 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA SENSI PRO - SUSHIL MASTER</title>
+    <title>ULTRA SENSI PRO - FINAL BY SUSHIL</title>
     <style>
-        /* --- CSS: PREMIUM RED MAGIC DESIGN --- */
+        /* --- CSS: GLOBAL STYLING --- */
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
         
-        /* 1. Header Fix: No Orange Lines */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #0a0a0a; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 1000; }
-        .header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .header-left img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ff0000; }
-        .jarvis-label { font-weight: bold; font-size: 22px; text-shadow: 0 0 10px #ff0000; }
-        .menu-btn { font-size: 35px; color: #ff0000; cursor: pointer; background: none; border: none; }
+        /* 1. Header: Left Logo, Center Jarvis, Right Menu */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: #0a0a0a; border-bottom: 2px solid #ff0000; position: sticky; top: 0; z-index: 1000; }
+        .header img { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid #ff0000; cursor: pointer; }
+        .jarvis-title { font-weight: bold; font-size: 22px; color: #fff; text-shadow: 0 0 10px #ff0000; }
+        .menu-btn { font-size: 30px; color: #ff0000; background: none; border: none; cursor: pointer; }
 
-        /* 2. Main Brand Photo */
-        .brand-banner { width: 100%; text-align: center; padding: 10px 0; }
-        .brand-banner img { width: 92%; border-radius: 15px; border: 2px solid #333; }
+        /* 2. Main Large Photo */
+        .main-banner { width: 100%; text-align: center; padding: 10px 0; }
+        .main-banner img { width: 90%; border-radius: 20px; border: 2px solid #222; cursor: pointer; transition: 0.3s; }
+        .main-banner img:hover { border-color: #ff0000; }
 
-        /* 3. Search & Brands */
-        .container { padding: 15px; }
-        .box { background: #111; border-radius: 15px; padding: 15px; margin-bottom: 20px; border: 1px solid #222; }
-        input { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #333; background: #000; color: #fff; box-sizing: border-box; }
-        
-        .brand-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px; }
-        .brand-btn { background: #1a1a1a; color: #fff; border: 1px solid #ff6600; padding: 12px; border-radius: 8px; font-weight: bold; text-align: center; cursor: pointer; }
+        /* 3. Global Search & RAM */
+        .search-area { padding: 15px; display: flex; gap: 10px; }
+        .search-box { flex: 2; }
+        .ram-box { flex: 1; }
+        input, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #111; color: #fff; box-sizing: border-box; }
 
-        /* 4. Orange Sensi Page (As per your Photo) */
-        .full-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 3000; flex-direction: column; }
-        .p-head { display: flex; justify-content: space-between; padding: 15px; background: #111; border-bottom: 2px solid #ff6600; }
-        .p-body { flex: 1; padding: 25px; overflow-y: auto; text-align: center; }
-        
-        /* Orange Gradient Sensi Bars */
-        .sensi-item { margin-bottom: 20px; text-align: left; }
-        .label-row { display: flex; justify-content: space-between; font-weight: bold; color: #ffcc00; margin-bottom: 8px; }
-        .bar-container { background: #222; height: 18px; border-radius: 10px; width: 100%; overflow: hidden; }
-        .bar-fill { background: linear-gradient(90deg, #ff6600, #ffea00); height: 100%; border-radius: 10px; transition: 0.5s; }
+        /* 4. Brand List & Character Skill */
+        .container { padding: 0 15px; }
+        .section-title { color: #ff6600; font-weight: bold; margin: 15px 0 10px; display: block; border-left: 4px solid #ff6600; padding-left: 10px; }
+        .brand-list { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; scrollbar-width: none; }
+        .brand-item { background: #1a1a1a; padding: 8px 20px; border-radius: 20px; border: 1px solid #333; white-space: nowrap; }
 
-        /* 5. Buttons */
-        .btn-action { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; margin-top: 10px; cursor: pointer; }
+        /* 5. Name Generator & Action Buttons */
+        .action-btn { background: linear-gradient(45deg, #ff6600, #ff0000); color: #fff; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 15px; }
+
+        /* 6. Full Page Overlays */
+        .full-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; }
+        .p-head { display: flex; justify-content: space-between; padding: 15px; background: #0a0a0a; border-bottom: 2px solid #ff6600; align-items: center; }
+        .p-body { flex: 1; padding: 20px; overflow-y: auto; text-align: center; }
+
+        /* Animation Loader */
+        #loader { display: none; margin: 20px auto; width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid #ff6600; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Sensi Bars */
+        .bar-wrap { margin-bottom: 15px; text-align: left; }
+        .bar-info { display: flex; justify-content: space-between; color: #ffea00; font-weight: bold; margin-bottom: 5px; }
+        .bar-outer { background: #222; height: 15px; border-radius: 10px; width: 100%; overflow: hidden; }
+        .bar-inner { background: linear-gradient(90deg, #ff6600, #ffea00); height: 100%; width: 0; transition: 1.5s ease-out; }
 
         /* Side Menu */
-        .side-menu { position: fixed; right: -320px; top: 0; width: 280px; height: 100%; background: #080808; transition: 0.4s; z-index: 4000; padding: 30px; border-left: 2px solid #ff0000; }
+        .side-menu { position: fixed; right: -320px; top: 0; width: 280px; height: 100%; background: #080808; transition: 0.4s; z-index: 3000; padding: 30px; border-left: 2px solid #ff0000; }
         .side-menu.active { right: 0; }
+        .side-menu a { display: block; color: #fff; text-decoration: none; margin-bottom: 20px; font-size: 18px; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="header-left" onclick="alert('Developed by Sushil')">
-            <img src="IMG_20260501_103729.jpg">
-            <div class="jarvis-label" onclick="event.stopPropagation(); openJarvis()">Jarvis AI</div>
-        </div>
+        <img src="IMG_20260501_103729.jpg" onclick="showAppInfo()">
+        <div class="jarvis-title">Jarvis AI</div>
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
     </div>
 
-    <div class="brand-banner">
-        <img src="IMG_20260501_103729.jpg" alt="Sushil Brand">
+    <div class="main-banner">
+        <img src="IMG_20260501_103729.jpg" id="mainBanner" onclick="showAppInfo()">
     </div>
 
     <div class="container">
-        <div class="box">
-            <label style="color:#ff6600; font-weight:bold;">Mobile Brand & Model Search</label>
-            <input type="text" id="mSearch" placeholder="Type Brand (e.g. Vivo, Samsung)">
-            <div class="brand-grid">
-                <div class="brand-btn" onclick="showModels('VIVO')">VIVO</div>
-                <div class="brand-btn" onclick="showModels('SAMSUNG')">SAMSUNG</div>
-                <div class="brand-btn" onclick="showModels('iPHONE')">iPHONE</div>
-                <div class="brand-btn" onclick="showModels('XIAOMI')">XIAOMI</div>
+        <div class="search-area">
+            <div class="search-box">
+                <input type="text" id="mSearch" placeholder="Global Phone Search...">
             </div>
-            <div id="modelList" style="margin-top:10px; display:none;"></div>
+            <div class="ram-box">
+                <select id="ramSelect">
+                    <option>4GB RAM</option>
+                    <option>6GB RAM</option>
+                    <option>8GB+ RAM</option>
+                </select>
+            </div>
         </div>
 
-        <div class="box">
-            <label style="color:#ffea00; font-weight:bold;">Character Skill Search</label>
-            <input type="text" id="cSearch" placeholder="Search Character (e.g. Alok, Wukong)">
-            <button class="btn-action" style="background:#333; margin-top:10px;" onclick="searchChar()">SEARCH SKILL</button>
+        <span class="section-title">Popular Mobile Brands</span>
+        <div class="brand-list">
+            <div class="brand-item">iPhone</div>
+            <div class="brand-item">SAMSUNG</div>
+            <div class="brand-item">VIVO</div>
+            <div class="brand-item">XIAOMI</div>
+            <div class="brand-item">OPPO</div>
+            <div class="brand-item">REALME</div>
         </div>
 
-        <div class="box" style="border: 1px solid #ff0000;">
-            <div style="display:flex; justify-content:space-between;">
-                <span>120 FPS Ultra Boost</span>
-                <input type="checkbox" checked>
-            </div>
-            <button class="btn-action" onclick="openSystemSet()">OPEN SYSTEM SETTINGS</button>
-        </div>
+        <span class="section-title">Character Skill AI</span>
+        <input type="text" id="cSearch" placeholder="Search Character (e.g. Alok, Wukong)">
+        
+        <button class="action-btn" onclick="startProcess()">GENERATE UNIQUE SENSI</button>
+        
+        <button class="action-btn" style="background: #222; border: 1px solid #ff6600;" onclick="openPage('namePage')">STYLISH NAME MAKER</button>
+    </div>
+
+    <div id="sideMenu" class="side-menu">
+        <h3 style="color:#ff0000; border-bottom: 1px solid #333; padding-bottom: 10px;">ULTRA MENU</h3>
+        <a href="javascript:void(0)" onclick="showAbout()">मेरे बारे में (Developer)</a>
+        <a href="javascript:void(0)" onclick="showAppInfo()">ऐप के बारे में</a>
+        <a href="https://www.instagram.com/ultrax111ff" target="_blank">Instagram Channel</a>
+        <a href="https://www.youtube.com/@ULTRALEGEND111" target="_blank">YouTube Channel</a>
+        <a href="javascript:void(0)" onclick="alert('Telegram link not available')">Telegram Channel</a>
+        <button class="action-btn" onclick="toggleMenu()" style="background:#111;">CLOSE</button>
     </div>
 
     <div id="sensiPage" class="full-page">
         <div class="p-head">
-            <span id="targetDevice" style="color:#ff6600; font-weight:bold;"></span>
-            <button onclick="closeP('sensiPage')" style="background:red; color:#fff; border:none; padding:5px 12px; border-radius:5px;">X</button>
+            <span style="color:#ff6600; font-weight:bold;">AI GENERATING SENSI...</span>
+            <button onclick="closePage('sensiPage')" style="background:red; border:none; color:#fff; padding:5px 12px; border-radius:5px;">X</button>
         </div>
         <div class="p-body">
-            <div id="sensiContent"></div>
-            <div style="margin-top:40px;">
+            <div id="loader"></div>
+            <div id="sensiData" style="display:none;"></div>
+            <div id="sensiFooter" style="display:none; margin-top:30px;">
                 <img src="IMG_20260501_103729.jpg" style="width:85%; border-radius:15px; border:2px solid #ff6600;">
-                <p style="color:#666;">© SUSHIL GAMING TECH</p>
+                <p style="color:#666;">© Developed by Sushil</p>
             </div>
         </div>
     </div>
 
-    <div id="charPage" class="full-page">
+    <div id="namePage" class="full-page">
         <div class="p-head">
-            <span id="charTitle" style="color:#ffea00; font-weight:bold;"></span>
-            <button onclick="closeP('charPage')" style="background:red; color:#fff; border:none; padding:5px 12px; border-radius:5px;">X</button>
+            <span style="color:#ffea00; font-weight:bold;">NAME TITLE MAKER</span>
+            <button onclick="closePage('namePage')" style="background:red; border:none; color:#fff; padding:5px 12px; border-radius:5px;">X</button>
         </div>
-        <div class="p-body" id="charData" style="text-align:left;"></div>
+        <div class="p-body">
+            <input type="text" id="nameInput" placeholder="Enter Name..." oninput="genNames()">
+            <div id="nameList" style="margin-top:20px; text-align:left;"></div>
+        </div>
     </div>
 
-    <div id="sideMenu" class="side-menu">
-        <h3 style="color:red;">ULTRA MENU</h3>
-        <a href="https://www.instagram.com/ultrax111ff" style="color:white; text-decoration:none; display:block; margin:20px 0;">Instagram</a>
-        <button class="btn-action" onclick="toggleMenu()" style="background:#222;">CLOSE</button>
+    <div id="infoPage" class="full-page">
+        <div class="p-head">
+            <span style="color:#ff0000; font-weight:bold;">APP POLICY & INFO</span>
+            <button onclick="closePage('infoPage')" style="background:red; border:none; color:#fff; padding:5px 12px; border-radius:5px;">X</button>
+        </div>
+        <div class="p-body" style="text-align:justify; line-height:1.6;">
+            <img src="IMG_20260501_103729.jpg" style="width:100px; border-radius:50%; border:2px solid #ff0000; display:block; margin: 0 auto 20px;">
+            यह 'Ultra Sensi Pro' ऐप विशेष रूप से गेमिंग परफॉरमेंस को सुधारने के लिए बनाया गया है। इसमें AI तकनीक का उपयोग किया गया है ताकि हर यूजर को उसके डिवाइस के हिसाब से सबसे यूनिक और बेस्ट सेंसिटिविटी मिल सके। इस ऐप का मकसद गेमर्स की मदद करना है। आप सेटिंग्स को अपनी जरूरत के अनुसार बदल सकते हैं।
+        </div>
     </div>
 
     <script>
-        const KEY = "AIzaSyAHhqfY5Gg0j5qVqsMSn7bPyeoujjtSqhI";
-
         function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
-        function closeP(id) { document.getElementById(id).style.display = 'none'; }
+        function openPage(id) { document.getElementById(id).style.display = 'flex'; }
+        function closePage(id) { document.getElementById(id).style.display = 'none'; }
 
-        function showModels(brand) {
-            let list = document.getElementById('modelList');
-            list.style.display = 'block';
-            let phones = brand === 'VIVO' ? ['Vivo Y21', 'Vivo V27', 'Vivo T1 5G'] : ['Model 1', 'Model 2', 'Model 3'];
-            list.innerHTML = phones.map(p => `<div onclick="openSensi('${p}')" style="padding:10px; border-bottom:1px solid #333;">${p}</div>`).join('');
+        function startProcess() {
+            let m = document.getElementById('mSearch').value;
+            if(!m) { alert("कृपया मोबाइल मॉडल लिखें!"); return; }
+            openPage('sensiPage');
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('sensiData').style.display = 'none';
+            document.getElementById('sensiFooter').style.display = 'none';
+
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                generateSensi();
+            }, 3000); // 3 Second Animation
         }
 
-        function openSensi(device) {
-            document.getElementById('targetDevice').innerText = device + " 200% SENSI";
-            let types = ["General", "Red Dot", "2x Scope", "4x Scope", "Sniper", "Free Look"];
-            let html = "";
-            types.forEach(t => {
-                let val = Math.floor(Math.random() * (200 - 185 + 1)) + 185; // Unique random sensi
+        function generateSensi() {
+            let html = `<h3>Unique Settings for ${document.getElementById('mSearch').value}</h3>`;
+            const items = ["General", "Red Dot", "2x Scope", "4x Scope", "Sniper", "Free Look"];
+            
+            items.forEach(item => {
+                let val = Math.floor(Math.random() * (200 - 180 + 1)) + 180; // Always unique between 180-200
                 html += `
-                    <div class="sensi-item">
-                        <div class="label-row"><span>${t}</span><span>${val}</span></div>
-                        <div class="bar-container"><div class="bar-fill" style="width:${(val/200)*100}%"></div></div>
-                    </div>`;
+                <div class="bar-wrap">
+                    <div class="bar-info"><span>${item}</span><span>${val}</span></div>
+                    <div class="bar-outer"><div class="bar-inner" style="width:${(val/200)*100}%"></div></div>
+                </div>`;
             });
-            document.getElementById('sensiContent').innerHTML = html;
-            document.getElementById('sensiPage').style.display = 'flex';
+
+            document.getElementById('sensiData').innerHTML = html;
+            document.getElementById('sensiData').style.display = 'block';
+            document.getElementById('sensiFooter').style.display = 'block';
         }
 
-        function searchChar() {
-            let name = document.getElementById('cSearch').value;
-            if(!name) return alert("नाम लिखें!");
-            document.getElementById('charTitle').innerText = name.toUpperCase() + " SKILL AI";
-            document.getElementById('charData').innerHTML = `<h3>Best Skill Combo for ${name}:</h3><p>Use Skill: Level 6 Master.<br>Auto Headshot: Enabled.<br><br><img src="IMG_20260501_103729.jpg" style="width:100%; border-radius:10px;"></p>`;
-            document.getElementById('charPage').style.display = 'flex';
+        function genNames() {
+            let n = document.getElementById('nameInput').value;
+            let list = document.getElementById('nameList');
+            if(!n) { list.innerHTML = ""; return; }
+            const styles = [`亗 ${n} 亗`, `꧁ ${n} ꧂`, `⚡ ${n} ⚡`, `〆${n}〆`, `『 ${n} 』` ];
+            list.innerHTML = styles.map(s => `<div style="background:#111; padding:15px; margin-bottom:10px; border-radius:10px; border-left:3px solid #ffea00;">${s}</div>`).join('');
         }
 
-        function openSystemSet() {
-            alert("सेटिंग्स खुल रही है! Free Fire चुनें।");
-            window.location.href = "intent:#Intent;action=android.settings.USAGE_ACCESS_SETTINGS;end";
+        function showAbout() {
+            alert("मेरे बारे में:\nनमस्ते, मैं सुशील हूँ। मैंने गेमिंग और आईफोन के अपने अनुभव को मिलाकर यह 'AI Sensi App' बनाया है। मेरा लक्ष्य गेमिंग को आसान बनाना है।");
         }
 
-        function openJarvis() { alert("Jarvis AI Active! Key Set."); }
+        function showAppInfo() { openPage('infoPage'); }
     </script>
 </body>
 </html>
